@@ -49,40 +49,32 @@ class CarritoModel(models.Model):
 
     class Meta:
         db_table = 'carrito'
-class PedidoModel(models.Model):
-    pedidoId = models.AutoField(db_column='id', primary_key=True, unique=True, null=False)
-    pedidoFecha = models.DateTimeField(db_column='fecha',auto_now_add=True)
-    pedidoTotal = models.DecimalField(db_column='total', max_digits=5, decimal_places=2, null=False)
+
+class ListaModel(models.Model):
+    listaId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
+    listaFechaCreacion = models.DateTimeField(db_column='fecha', auto_now_add=True)
+
+     # *** RELACIONES
+
+    productos = models.ForeignKey(to=ProductoModel, db_column='producto_id', related_name='listaProductos', null=False, on_delete=models.PROTECT)
+    cliente = models.ForeignKey(to=ClienteModel, db_column='cliente_id', related_name='listaCliente', null=False, on_delete=models.PROTECT)
+
+    class Meta:
+        db_table = 'lista'
+class OrdenCompraModel(models.Model):
+    ordenId = models.AutoField(db_column='id', primary_key=True, unique=True, null=False)
+    ordenFecha = models.DateTimeField(db_column='fecha',auto_now_add=True)
+    ordenDireccion = models.CharField(db_column='direccion',max_length=100, null=False)
+    ordenCorreo = models.CharField(db_column='correo', max_length=50, null=False)
+    ordenEstado = models.BooleanField(db_column='estado', default=True)
 
     # *** RELACIONES
 
     cliente = models.ForeignKey(to=ClienteModel, db_column='cliente_id', related_name='pedidoCliente', null=False, on_delete=models.PROTECT)
 
     class Meta:
-        db_table = 'pedido'
-class PedidoDetalleModel(models.Model):
-    detalleId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
-    detalleCantidad = models.IntegerField(db_column='cantidad', null=False, default=0)
-    detallePrecioUnitario = models.DecimalField(db_column='precioUnitario', max_digits=5, decimal_places=2 )
-    
+        db_table = 'orden_compra'
 
-    # *** RELACIONES
-
-    pedido = models.ForeignKey(to=PedidoModel, db_column='pedido_id', related_name='detallePedido', null=False, on_delete=models.PROTECT)
-    producto = models.ForeignKey(to=ProductoModel, db_column='producto_id', related_name='detalleProducto', null=False, on_delete=models.PROTECT)
-
-    class Meta:
-        db_table = 'detalle_pedido'
-class CabeceraCompraModel(models.Model):
-    cabeceraId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
-    cabeceraFecha = models.DateTimeField(db_column='fecha',auto_now_add=True)
-
-     # *** RELACIONES
-
-    cliente = models.ForeignKey(to=ClienteModel, db_column='cliente_id', related_name='cabeceraCliente', null=False, on_delete=models.PROTECT)
-
-    class Meta: 
-        db_table = 'cabecera_compra'
 class MetodoPagoModel(models.Model):
     TIPO_METODO = [(1, 'EFECTIVO'), (2,'TARJETA')]
 
@@ -92,13 +84,17 @@ class MetodoPagoModel(models.Model):
 
     class Meta: 
         db_table = 'metodo_pago'
-class DetalleCompraModel(models.Model):
-    detalleCompraId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
-    detalleCompraCantidad = models.IntegerField(db_column='cantidad', null=False, default=0)
-    detalleCompraPrecioTotal =  models.DecimalField(db_column='precioTotal', max_digits=5, decimal_places=2)
-    
-    cabecera = models.ForeignKey(to=CabeceraCompraModel, db_column='cabecera_id', related_name='cabeceraDetalle', null=False, on_delete=models.PROTECT)
-    producto = models.ForeignKey(to=ProductoModel, db_column='producto_id', related_name='detalleProductoCompra', null=False, on_delete=models.PROTECT)
-    metodo = models.ForeignKey(to=MetodoPagoModel, db_column='metodo_id', related_name='metodoCompra', null=False, on_delete=models.PROTECT)
+class OrdenDetalleModel(models.Model):
+    ordenDetalleId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
+    ordenDetalleCantidad = models.IntegerField(db_column='cantidad', null=False, default=0)
+    ordenDetallePrecioUnitario = models.DecimalField(db_column='precioUnitario', max_digits=5, decimal_places=2 )
+    ordenDetallePrecioTotal = models.DecimalField(db_column='precioTotal', max_digits=5, decimal_places=2 )
+
+
+    # *** RELACIONES
+
+    ordenCompra = models.ForeignKey(to=OrdenCompraModel, db_column='pedido_id', related_name='detallePedido', null=False, on_delete=models.PROTECT)
+    producto = models.ForeignKey(to=ProductoModel, db_column='producto_id', related_name='detalleProducto', null=False, on_delete=models.PROTECT)
+    metodoPago = models.ForeignKey(to=MetodoPagoModel, db_column='metodo_id', null=False, related_name='ordenMetodo', on_delete=models.PROTECT)
     class Meta:
-        db_table = 'detalle_compra'
+        db_table = 'orden_detalle'
