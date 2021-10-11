@@ -2,7 +2,7 @@ from django.db import models
 
 class CategoriaModel(models.Model):
     categoriaId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
-    categoriaNombre = models.CharField(db_column='nombre', max_length=50, null=False)
+    categoriaNombre = models.CharField(db_column='nombre', max_length=50, null=False, unique=True)
     class Meta:
         db_table = 'categoria'
 class ProductoModel(models.Model):
