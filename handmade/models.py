@@ -1,4 +1,8 @@
 from django.db import models
+from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
+
+from .authManager import ManejoCliente
+
 
 class CategoriaModel(models.Model):
     categoriaId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
@@ -11,7 +15,8 @@ class ProductoModel(models.Model):
     productoDescripcion = models.CharField(db_column='descripcion', max_length=100)
     productoCantidad = models.IntegerField(db_column='cantidad', null=False, default=0)
     productoEstado = models.BooleanField(db_column='estado', null=False, default=True)
-    productoImagen = models.ImageField(upload_to='productos/', db_column='foto', null=False)
+    #Imagen Cloudinary
+    productoImagen = models.TextField(db_column='imagen',  null=False)
     productoPrecio = models.DecimalField(db_column='precio', max_digits=5, decimal_places=2 )
     updateAt = models.DateTimeField(db_column='updated_at', auto_now=True) 
     created_At = models.DateTimeField(db_column='created_at', auto_now_add=True)
@@ -22,19 +27,27 @@ class ProductoModel(models.Model):
 
     class Meta:
         db_table = 'productos'
-class ClienteModel(models.Model):
-   
+class ClienteModel(AbstractBaseUser, PermissionsMixin):
+
     TIPO_DOCUMENTO = [(1, 'DNI'), (2,'PASAPORTE')]
-    TIPO_USUARIO   = [(1, 'ADMINISTRADOR'), (2, 'CLIENTE')]
+    TIPO_CLIENTE   = [(1, 'ADMINISTRADOR'), (2, 'CLIENTE')]
 
     clienteId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
     clienteNombre = models.CharField(db_column='nombre', max_length=50, null=False)
     clienteTipoDoc = models.TextField(db_column='tipo_doc',choices=TIPO_DOCUMENTO)
-    clienteNroDoc = models.IntegerField(db_column='nro_doc', null=False, unique=True)
+    clienteNroDoc = models.IntegerField(db_column='nro_doc',unique=True)
     clienteDireccion = models.CharField(db_column='direccion', max_length=100)
-    clienteTipo = models.TextField(db_column='tipo', choices=TIPO_USUARIO)
-    clienteCorreo = models.EmailField(db_column='correo', max_length=50, null=False, unique=True)
-    clientePassword = models.TextField(null=False)
+    clienteTipo = models.TextField(db_column='tipo', choices=TIPO_CLIENTE)
+    clienteCorreo = models.EmailField(db_column='correo', max_length=50, unique=True)
+    password = models.TextField(null=False)
+
+    is_staff = models.BooleanField(default=False)
+    is_active = models.BooleanField(default=False)
+
+    objects = ManejoCliente()
+
+    USERNAME_FIELD = 'clienteCorreo'
+    REQUIRED_FIELDS = ['clienteNombre','clienteTipoDoc','clienteNroDoc','clienteDireccion', 'clienteTipo']
 
     class Meta:
         db_table = 'clientes'    
