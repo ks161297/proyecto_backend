@@ -1,5 +1,7 @@
+from django.db import models
+from django.db.models import fields
 from rest_framework import request, serializers
-from .models import CategoriaModel, ClienteModel, ProductoModel
+from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 
 
 class RegistroClienteSerializer(serializers.ModelSerializer):
@@ -28,6 +30,11 @@ class RegistroClienteSerializer(serializers.ModelSerializer):
             }
         }
 
+class clienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClienteModel
+        fields = '__all__'
+
 class CategoriaSerializer(serializers.ModelSerializer):
     class Meta: 
         model = CategoriaModel
@@ -37,12 +44,35 @@ class ProductosSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductoModel
         fields = '__all__'
-
+        
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductoModel
+        #fields = '__all__'
+        exclude = ['categoria']
 
 class DetalleOrdenSerializer(serializers.Serializer):
     cantidad = serializers.IntegerField(required=True)
     producto_id = serializers.IntegerField(required=True)
+    metodo_id = serializers.IntegerField(required=True)
 
 class OrdenCompraSerializer(serializers.Serializer):
     cliente_id = serializers.IntegerField(min_value=0, required=True)
     detalle = DetalleOrdenSerializer(many=True, required=True)
+
+class DetallesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrdenDetalleModel
+        exclude = ['ordenCompra']
+        depth = 1
+
+class OperacionOrdenSerializer(serializers.ModelSerializer):
+    detalle = DetallesModelSerializer(many=True)
+    class Meta:
+        model = OrdenCompraModel
+        fields = '__all__'
+
+class OrdenesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrdenCompraModel
+        fields = '__all__'
