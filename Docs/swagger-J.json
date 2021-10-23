@@ -8,7 +8,7 @@
       "email": "mksss161297@gmail.com"
     }
   },
-  "host": "127.0.0.1:8000",
+  "host": "ecommerce-handmade.herokuapp.com",
   "basePath": "/",
   "securityDefinitions": {},
   "schemes": [

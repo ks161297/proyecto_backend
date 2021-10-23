@@ -12,6 +12,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 
 from pathlib import Path
 from os import environ
+from re import T
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
@@ -33,7 +34,7 @@ SECRET_KEY = 'django-insecure-0cq7t^a*7=%zc8#%*o84xg!lvgx=@ac&c115y256vas_=q))!)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['ecommerce-handmade.herokuapp.com']
 
 
 # Application definition
