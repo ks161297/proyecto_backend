@@ -6,32 +6,44 @@
 
 > :octocat: Marigrace Silva Salas
 
-### ¿Qué contiene el proyecto? :soon:
+### IDEA DEL PROYECTO:
+Se implementará un ecommerce de producto realizados a mano con la finalidad de facilitar a los clientes con la elección de productos.
 
-- [ ] Usar una BD (SQL ó No SQL)
-- [ ] CRUD con lógica
-- [ ] Manejo de archivos multimedia
-- [ ] Rutas protegidas
-- [ ] Paso de valores (URL, body, query, params)
-- [ ] Uso de sentencias avanzadas en el ORM o ODM (like, between, group by, order by, etc)
-- [ ] Despliegue de heroku
-- [ ] Documentación API(Swagger)
-- [ ] Markdown (funcionamiento y guía de ejecución)
-- [ ] Test para controladores
-- [ ] Github actions para un Pull Request
+### SOLUCIÓN 
 
-### PRIMER AVANCE  :raised_hands:
+* Agilizara el proceso de venta vía web para así poder brindarles seguridad y cumpliendo los protocolos de sanidad al momento de su envió y entrega de productos.
+* Implementar un apartado para que el administrador que ejecute labores de control de ventas.
 
-- [X] Definición de la idea del proyecto
-- [X] Primera versión del MER
-- [X] Configuración inicial del proyecto
+### Contruído con :hammer_and_wrench: :
 
-### SEGUNDO AVANCE :raised_hands:
+> Framework: Django
+> Base de datos: Postgres
+> Tester: Postman
+> Editor de código: VSCode
+### MODELO ENTIDAD RELACIÓN 
+![image text](https://raw.github.com/ks161297/proyecto_backend/avance01/Docs/E-commerce MER.png)
 
-- [X] CRUD
-    - Categoria - CR
-    - Productos - CR
-    - Producto<id> - CRUD
-    - Orden Compra - CR
-    - Orden Detalle - CR
-    - Cliente - CRUD 
+> 
+# INSTRUCCIONES PARA EL REPOSITORIO
+_Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento._
+
+Para una descarga diresta: 
+Puedes descargar ó usango Git puede clonarlo. 
+
+```https://github.com/ks161297/proyecto_backend.git```
+
+
+
+### PROYECTO_BACKEND :raised_hands:
+
+- [X] Usar una BD (SQL o No SQL) - postgres
+- [X] Al menos un CRUD con lógica - clientes, productos
+- [X] Manejo de archivos multimedia - Fotos cloudinary
+- [X] Rutas protegidas - JWT Login
+- [X] Paso de valores 
+- [X] Despliegue Heroku
+- [X] Documentación de la API - Swagger
+- [X] Markdown - indicaciones 
+- [X] Test de los controladores - cliente, categoria
+- [X] Github actions para Pull Request
+
