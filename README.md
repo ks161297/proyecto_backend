@@ -34,5 +34,4 @@
     - Producto<id> - CRUD
     - Orden Compra - CR
     - Orden Detalle - CR
-    - Metodo Pago - CRUD
     - Cliente - CRUD 
