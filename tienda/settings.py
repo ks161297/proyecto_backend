@@ -34,7 +34,7 @@ SECRET_KEY = 'django-insecure-0cq7t^a*7=%zc8#%*o84xg!lvgx=@ac&c115y256vas_=q))!)
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['ecommerce-handmade.herokuapp.com']
+ALLOWED_HOSTS = ['ecommerce-handmade.herokuapp.com', '127.0.0.1:8000']
 
 
 # Application definition
@@ -169,7 +169,7 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOW_METHODS = ['GET', 'POST','PUT','DELETE','PATCH']
+CORS_ALLOW_METHODS = ['GET', 'POST','PUT','DELETE','PATCH','OPTIONS']
 
 CORS_ALLOW_HEADERS = ['Content-Type', 'origin', 'Authorization','Accept']
 
