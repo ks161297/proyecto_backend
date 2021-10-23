@@ -20,7 +20,7 @@ from django.db import transaction
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
-class RegistroClienteController(ListCreateAPIView):
+class RegistroClienteController(CreateAPIView):
     serializer_class = RegistroClienteSerializer
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
@@ -516,7 +516,7 @@ class OrdenxClienteController(RetrieveAPIView):
     def get(self, request:Request):
         ordenesEncontradas = None
         cliente_id = request.query_params.get('cliente_id')
-        ordenFecha = request.query_params.get('ordenFecha')
+        
 
         if cliente_id:
             if ordenesEncontradas is not None:
