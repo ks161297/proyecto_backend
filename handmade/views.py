@@ -537,5 +537,3 @@ class OrdenxClienteController(RetrieveAPIView):
             'message':'Ordenes',
             'content':data.data
         })
-
-

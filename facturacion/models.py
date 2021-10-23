@@ -1,6 +1,7 @@
 from django.db import models
 from handmade.models import OrdenCompraModel
 
+
 class ComprobanteModel(models.Model):
 
     comprobanteId = models.AutoField(
@@ -26,4 +27,3 @@ class ComprobanteModel(models.Model):
 
     class Meta:
         db_table = 'comprobantes'
-

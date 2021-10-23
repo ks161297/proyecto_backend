@@ -1,5 +1,4 @@
 from django.db import models
-from django.core.validators import MinValueValidator
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
 from .authManager import ManejoCliente
 
