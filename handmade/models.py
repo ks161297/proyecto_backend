@@ -1,6 +1,5 @@
 from django.db import models
 from django.contrib.auth.models import PermissionsMixin, AbstractBaseUser
-
 from .authManager import ManejoCliente
 
 
@@ -79,3 +78,4 @@ class OrdenDetalleModel(models.Model):
     producto = models.ForeignKey(to=ProductoModel, db_column='producto_id', related_name='detalleProducto', null=False, on_delete=models.PROTECT)
     class Meta:
         db_table = 'orden_detalle'
+        verbose_name = 'detalle'

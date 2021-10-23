@@ -1,21 +1,22 @@
-
-from re import A
-import cloudinary
-from django.db.models import fields, manager
-from django.db.models.fields.related import create_many_to_many_intermediary_model
+from datetime import date, timedelta, timezone
+import datetime
 from django.db.models.query import QuerySet
+import cloudinary
 from django.views.decorators.csrf import requires_csrf_token
-
-from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from .serializer import CategoriaSerializer, DetallesModelSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, OrdenesSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
+from rest_framework_simplejwt.views import TokenObtainPairView
+
+from .permissions import CorreoPermission
+from .serializer import CategoriaSerializer, CustomPayloadSerializer, DetallesModelSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, OrdenesSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
 from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 import cloudinary.uploader
-from rest_framework import serializers, status
+from rest_framework import status
 from django.conf import settings
 from django.db import transaction
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 class RegistroClienteController(ListCreateAPIView):
@@ -33,8 +34,40 @@ class RegistroClienteController(ListCreateAPIView):
                 'message':'Error al crear el cliente',
                 'content':data.errors
             })
+class ClientesController(RetrieveAPIView):
+
+    serializer_class = clienteSerializer
+    queryset = ClienteModel.objects.all()
+    def get(self, request:Request):
+        registros =ClienteModel.objects.filter(clienteEstado=True).values()
+        return Response(data={
+            'message':'Los clientes activos son:',
+            'content': registros
+        })
+
+    def patch(self, request:Request, id):
+        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
+        if clienteEncontrado is None:
+            return Response(data={
+                'message':"Cliente no existe",
+                'content': None
+            }, status=status.HTTP_404_NOT_FOUND)
+        serializador = clienteSerializer(clienteEncontrado, data=request.data, partial=True)
+        if serializador.is_valid():
+            serializador.save()
+            return Response(data={
+                'message':'Actualizado con exito',
+                'content': serializador.data
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(data={
+                'message':'Error al actualizar el registro',
+                'content': serializador.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
 class BusquedaCliente(RetrieveAPIView):
+    queryset = ClienteModel.objects.all()
     serializer_class =clienteSerializer
+
     def get(self, request:Request):
         nombre = request.query_params.get('nombre')
         nro_doc = request.query_params.get('nro_doc')
@@ -53,9 +86,44 @@ class BusquedaCliente(RetrieveAPIView):
             'content':data.data
         })
 
-    
+class CustomPayloadController(TokenObtainPairView):
+    permission_classes = [AllowAny]
+    serializer_class = CustomPayloadSerializer
+
+    def post(self, request):
+        data = self.serializer_class(data=request.data)
+        if data.is_valid():
+            print(data.validated_data)
+            return Response(data={
+                "success": True,
+                "content": data.validated_data,
+                "message": "Login exitoso"
+            })
+
+        else:
+            return Response(data={
+                "success": False,
+                "content": data.errors,
+                "message": "error de generacion de la jwt"
+            })
+
+
+class PerfilUsuario(RetrieveAPIView):
+
+    permission_classes = [IsAuthenticated, CorreoPermission]
+
+    def get(self, request: Request):
+        
+        print(request.user)
+        print(request.auth) 
+        return Response(data={
+            'message': 'El usuario es',
+            'content': request.user.clienteCorreo
+        })
+
+
 class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
-    serializer_class = RegistroClienteSerializer
+    serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
     #Filtrar x id
     def get(self, request:Request, id):
@@ -68,14 +136,6 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
         return Response(data={
             'message':'El cliente buscado es:',
             'content':data.data
-        })
-    #Filtrar x estado 
-
-    def get(self, request:Request):
-        registros =ClienteModel.objects.filter(clienteEstado=True).values()
-        return Response(data={
-            'message':'Los clientes activos son:',
-            'content': registros
         })
 
     #Actualizar
@@ -195,7 +255,7 @@ class ProductosController(RetrieveUpdateDestroyAPIView):
 
 class SubirImagenController(APIView):
     def post(self, request):
-        file = request.data.get('picture')
+        file = request.data.get('imagen')
         upload_data = cloudinary.uploader.upload(file)
         return Response ({
             'message':'Imagen subida con exito',
@@ -299,7 +359,8 @@ class OrdenCompraController(CreateAPIView):
                         detalleOrden = OrdenDetalleModel(ordenDetalleCantidad=cantidad,ordenDetallePrecioUnitario=producto.productoPrecio, ordenDetallePrecioTotal=producto.productoPrecio*cantidad, producto=producto, ordenCompra=pedido).save()
                     
                 return Response(data={
-                    'message':'Orden exitosa'
+                    'message':'Orden exitosa',
+                    'content': data.data
                 })
             except Exception as e:
                 return Response(data={
@@ -313,7 +374,8 @@ class OrdenCompraController(CreateAPIView):
 
 class DetallesController(RetrieveAPIView):
     serializer_class = OperacionOrdenSerializer
-    def get(self, request:Request, id):
+    def get(self, request: Request, id):
+        #orden = OrdenCompraModel.objects.get(ordenId = id)
         orden = get_object_or_404(OrdenCompraModel, pk=id)
         serializador = self.serializer_class(instance=orden)
         return Response(data={
@@ -447,18 +509,31 @@ class FiltrosDetalleController(RetrieveAPIView):
         })
 
 class OrdenxClienteController(RetrieveAPIView):
-    serializer_class = OrdenesSerializer
+    serializer_class = OperacionOrdenSerializer
     def get(self, request:Request):
         ordenesEncontradas = None
         cliente_id = request.query_params.get('cliente_id')
+        ordenFecha = request.query_params.get('ordenFecha')
 
         if cliente_id:
             if ordenesEncontradas is not None:
                 ordenesEncontradas = ordenesEncontradas.objects.select_related().filter(cliente_id=cliente_id)
             else:
                 ordenesEncontradas = OrdenCompraModel.objects.select_related().filter(cliente_id=cliente_id)
+
+        if ordenFecha:
+            mes = datetime.datetime.now() - timedelta(days=30)
+            #seismeses = (timezone.now() - datetime.timedelta(days=180))
+            #unanho = (timezone.now() - datetime.timedelta(days=365))
+            if ordenesEncontradas is not None:
+                ordenesEncontradas = ordenesEncontradas.filter(ordenFecha=mes).all()
+            else: 
+                ordenesEncontradas = OrdenCompraModel.objects.filter(ordenFecha=mes).all()
+
         data = self.serializer_class(instance=ordenesEncontradas, many=True)
         return Response(data={
             'message':'Ordenes',
             'content':data.data
         })
+
+
