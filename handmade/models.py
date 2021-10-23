@@ -59,6 +59,7 @@ class OrdenCompraModel(models.Model):
     ordenDireccion = models.CharField(db_column='direccion',max_length=100, null=False)
     ordenCorreo = models.CharField(db_column='correo', max_length=50, null=False)
     ordenEstado = models.BooleanField(db_column='estado', default=True)
+    ordenTotal = models.DecimalField(db_column='total', max_digits=5, decimal_places=2)
 
     # *** RELACIONES
 
@@ -69,8 +70,7 @@ class OrdenCompraModel(models.Model):
 class OrdenDetalleModel(models.Model):
     ordenDetalleId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
     ordenDetalleCantidad = models.IntegerField(db_column='cantidad', null=False, default=0)
-    ordenDetallePrecioUnitario = models.DecimalField(db_column='precioUnitario', max_digits=5, decimal_places=2 )
-    ordenDetallePrecioTotal = models.DecimalField(db_column='precioTotal', max_digits=5, decimal_places=2 )
+    ordenDetalleSubTotal = models.DecimalField(db_column='sub_total', max_digits=5, decimal_places=2 )
 
 
     # *** RELACIONES

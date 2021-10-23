@@ -1,6 +1,5 @@
 from datetime import datetime
 
-from handmade.serializer import DetalleOrdenSerializer
 from .models import ComprobanteModel
 from handmade.models import OrdenDetalleModel,OrdenCompraModel
 from django.db import connection
@@ -8,13 +7,13 @@ from requests import post
 from os import environ
 
 
-def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, documento_cliente: str, detalle: OrdenDetalleModel):
+def crearComprobante(tipo_de_comprobante: int, ordenCompra: OrdenCompraModel, documento_cliente: str):
 
     comprobante_creado = ComprobanteModel.objects.filter(
-        orden=orden.ordenId).first()
+        ordenCompra=ordenCompra.ordenId).first()
 
     if comprobante_creado:
-        return 'La orden ya tiene un comprobante'
+        return 'El pedido ya tiene un comprobante'
 
     operacion = 'generar_comprobante'
     if tipo_de_comprobante == 1:
@@ -36,27 +35,24 @@ def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, document
 
     cliente_numero_de_documento = documento_cliente
 
-    cliente_denominacion = orden.cliente.clienteNombre
+    cliente_denominacion = ordenCompra.cliente.clienteNombre
     cliente_direccion = ''
-    cliente_email = orden.cliente.clienteCorreo
+    cliente_email = ordenCompra.cliente.clienteCorreo
     fecha_de_emision = datetime.now()
     moneda = 1
     porcentaje_de_igv = 18
 
-    total = float(detalle.ordenDetallePrecioTotal)
+    total = float(ordenCompra.ordenTotal)
 
-    # una vez generado el comprobante con el tipo de formato no se puede cambiar
     formato_de_pdf = 'TICKET'
 
-    productos: list[OrdenDetalleModel] = orden.ordenDetalles.all()
+    productos: list[OrdenDetalleModel] = ordenCompra.detallePedido.all()
     items = []
     for producto in productos:
         unidad_de_medida = 'NIU'  # *
-        codigo = producto.detalleId
+        codigo = producto.ordenDetalleId
         descripcion = producto.producto.productoNombre
-        cantidad = producto.detalleCantidad
-        # valor_unitario = precio_con_igv / 1.18
-        # calculadora IGV https://sibi.pe/calculadora/igv
+        cantidad = producto.ordenDetalleCantidad
         valor_unitario = float(producto.producto.productoPrecio) / 1.18
         precio_unitario = float(producto.producto.productoPrecio)
         subtotal = valor_unitario * cantidad
@@ -122,7 +118,7 @@ def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, document
             comprobantePDF=respuesta.json().get('enlace_del_pdf'),
             comprobanteXML=respuesta.json().get('enlace_del_xml'),
             comprobanteCDR=respuesta.json().get('enlace_del_cdr'),
-            orden=orden)
+            ordenCompra=ordenCompra)
 
         nuevoComprobante.save()
 
@@ -133,3 +129,4 @@ def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, document
 
 def visualizarComprobante():
     pass
+

@@ -21,8 +21,9 @@ class ComprobanteModel(models.Model):
 
     comprobanteCDR = models.URLField(db_column='cdr', null=True)
 
-    orden = models.OneToOneField(to=OrdenCompraModel, on_delete=models.CASCADE,
-                                  db_column='orden_id', related_name='ordenComprobante')
+    ordenCompra = models.OneToOneField(to=OrdenCompraModel, on_delete=models.CASCADE,
+                                  db_column='pedido_id', related_name='ordenComprobante')
 
     class Meta:
         db_table = 'comprobantes'
+

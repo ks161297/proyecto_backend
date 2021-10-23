@@ -342,7 +342,7 @@ class OrdenCompraController(CreateAPIView):
 
                     if not clienteE:
                         raise Exception('Cliente Incorrecto')
-                    pedido = OrdenCompraModel(cliente = clienteE)
+                    pedido = OrdenCompraModel(ordenTotal = 0, cliente = clienteE)
                     pedido.save()
                     for detalle in detalles:
                         producto_id = detalle.get('producto_id')
@@ -356,8 +356,10 @@ class OrdenCompraController(CreateAPIView):
                             raise Exception('No hay suficiente cantidad para el producto {}'.format(producto.productoNombre))
                         producto.productoCantidad = producto.productoCantidad - cantidad
                         producto.save()
-                        detalleOrden = OrdenDetalleModel(ordenDetalleCantidad=cantidad,ordenDetallePrecioUnitario=producto.productoPrecio, ordenDetallePrecioTotal=producto.productoPrecio*cantidad, producto=producto, ordenCompra=pedido).save()
-                    
+                        detalleOrden = OrdenDetalleModel(ordenDetalleCantidad=cantidad,ordenDetalleSubTotal=producto.productoPrecio*cantidad, producto=producto, ordenCompra=pedido)
+                        detalleOrden.save()
+                        pedido.ordenTotal += detalleOrden.ordenDetalleSubTotal
+                        pedido.save()
                 return Response(data={
                     'message':'Orden exitosa',
                     'content': data.data
@@ -481,32 +483,32 @@ class FiltrosOrdenesController(RetrieveAPIView):
             'content':data.data
         })
 
-class FiltrosDetalleController(RetrieveAPIView):
+# class FiltrosDetalleController(RetrieveAPIView):
 
-    serializer_class = DetallesModelSerializer
-    def get(self, request:Request):
+#     serializer_class = DetallesModelSerializer
+#     def get(self, request:Request):
     
-        cantidad=request.query_params.get('cantidad')
-        precioTotal=request.query_params.get('precioTotal')
-        detalleEncontrado =None
+#         cantidad=request.query_params.get('cantidad')
+#         precioTotal=request.query_params.get('precioTotal')
+#         detalleEncontrado =None
 
-        if cantidad: 
-            if detalleEncontrado is not None:
-                detalleEncontrado = detalleEncontrado.filter(ordenDetalleCantidad__icontains=cantidad).all()
-            else:
-                detalleEncontrado = OrdenDetalleModel.objects.filter(ordenDetalleCantidad__icontains=cantidad).all()
-        if precioTotal: 
-            if detalleEncontrado is not None:
-                detalleEncontrado = detalleEncontrado.filter(ordenDetallePrecioTotal__icontains=precioTotal).all()
-            else:
-                detalleEncontrado = OrdenDetalleModel.objects.filter(ordenDetallePrecioTotal__icontains=precioTotal).all()
+#         if cantidad: 
+#             if detalleEncontrado is not None:
+#                 detalleEncontrado = detalleEncontrado.filter(ordenDetalleCantidad__icontains=cantidad).all()
+#             else:
+#                 detalleEncontrado = OrdenDetalleModel.objects.filter(ordenDetalleCantidad__icontains=cantidad).all()
+#         if precioTotal: 
+#             if detalleEncontrado is not None:
+#                 detalleEncontrado = detalleEncontrado.filter(ordenDetallePrecioTotal__icontains=precioTotal).all()
+#             else:
+#                 detalleEncontrado = OrdenDetalleModel.objects.filter(ordenDetallePrecioTotal__icontains=precioTotal).all()
         
-        data = self.serializer_class(instance=detalleEncontrado, many=True)
+#         data = self.serializer_class(instance=detalleEncontrado, many=True)
     
-        return Response(data={
-            'message':'Ordenes:',
-            'content':data.data
-        })
+#         return Response(data={
+#             'message':'Ordenes:',
+#             'content':data.data
+#         })
 
 class OrdenxClienteController(RetrieveAPIView):
     serializer_class = OperacionOrdenSerializer
