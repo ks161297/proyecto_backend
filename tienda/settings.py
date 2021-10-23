@@ -51,7 +51,8 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'cloudinary',
     'corsheaders',
-    'facturacion'
+    'facturacion',
+    'rest_framework_swagger',
 ]
 
 MIDDLEWARE = [
