@@ -25,3 +25,14 @@
 - [X] Definición de la idea del proyecto
 - [X] Primera versión del MER
 - [X] Configuración inicial del proyecto
+
+### SEGUNDO AVANCE :raised_hands:
+
+- [X] CRUD
+    - Categoria - CR
+    - Productos - CR
+    - Producto<id> - CRUD
+    - Orden Compra - CR
+    - Orden Detalle - CR
+    - Metodo Pago - CRUD
+    - Cliente - CRUD 
