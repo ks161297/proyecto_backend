@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "938c5952-42c1-4335-acdf-97c3e7a2170a",
+		"_postman_id": "f78109dc-b4a9-4d9d-8145-3b98c9102b67",
 		"name": "Handmade",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -12,7 +12,7 @@
 					"name": "Administrador",
 					"item": [
 						{
-							"name": "/handmade/cliente",
+							"name": "/handmade/cliente/:id",
 							"request": {
 								"method": "GET",
 								"header": [],
@@ -67,6 +67,25 @@
 								}
 							},
 							"response": []
+						},
+						{
+							"name": "Clientes general",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_local}}/handmade/clientes/",
+									"host": [
+										"{{url_local}}"
+									],
+									"path": [
+										"handmade",
+										"clientes",
+										""
+									]
+								}
+							},
+							"response": []
 						}
 					]
 				},
@@ -77,7 +96,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"clienteNombre\":\"Marigrace Silva\",\r\n    \"clienteTipoDoc\":2,\r\n    \"clienteNroDoc\":78596633,\r\n    \"clienteDireccion\":\"Av Cayma\",\r\n    \"clienteTipo\":2,\r\n    \"clienteCorreo\":\"mksss@gmail.com\",\r\n    \"password\":\"Welcome123!\"\r\n  }",
+							"raw": "{\r\n    \"clienteNombre\":\"Marigrace\",\r\n    \"clienteTipoDoc\":2,\r\n    \"clienteNroDoc\":22588566,\r\n    \"clienteDireccion\":\"Av Cayma\",\r\n    \"clienteTipo\":2,\r\n    \"clienteCorreo\":\"cccaacc@gmail.com\",\r\n    \"password\":\"Welcome123!\"\r\n  }",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -97,6 +116,34 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Act-perfil",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clienteNroDoc\":\"72750134\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/act-perfil/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"act-perfil",
+								"1"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -110,7 +157,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"categoriaNombre\":\"Dia del niño\",\r\n    \"categoriaEstado\": \"True\"\r\n}",
+							"raw": "{\r\n    \"categoriaNombre\":\"Aniversarios\",\r\n    \"categoriaEstado\": \"True\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -200,6 +247,101 @@
 			]
 		},
 		{
+			"name": "Login",
+			"item": [
+				{
+					"name": "/login-custom",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clienteCorreo\":\"cccaacc@gmail.com\",\r\n    \"password\":\"Welcome123!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/login-custom",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"login-custom"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "refresh",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"refresh\":\"eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNTAzNDY2OCwianRpIjoiNDM5MTcwZjAzZTYxNDVjY2E5OTcxYTU3OTAwOThkZmQiLCJ1c2VyX2lkIjoxfQ.2-Lc8uTGxxJTo1sexiUGqKxKcqaY5sxJL-c2vT1u-6s\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/refresh-token",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"refresh-token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Perfil",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/me",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "verify-token",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/verify-token",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"verify-token"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
 			"name": "Productos",
 			"item": [
 				{
@@ -209,7 +351,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"productoNombre\":\"Caja Artesanal 1\",\r\n    \"productoDescripcion\": \"Detalles Especiales\",\r\n    \"productoPrecio\":\"40\",\r\n    \"productoCantidad\":100,\r\n    \"productoImagen\":\"http://res.cloudinary.com/dvnfpdtlz/image/upload/v1633996383/ayz9xspo1f3uyyptbtee.jpg\",\r\n    \"categoria\":2\r\n}",
+							"raw": "{\r\n    \"productoNombre\":\"Caja Artesanal 1\",\r\n    \"productoDescripcion\": \"Detalles Especiales\",\r\n    \"productoPrecio\":\"40\",\r\n    \"productoCantidad\":100,\r\n    \"productoImagen\":\"http://res.cloudinary.com/dvnfpdtlz/image/upload/v1633996383/ayz9xspo1f3uyyptbtee.jpg\",\r\n    \"categoria\":1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -236,14 +378,13 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_local}}/handmade/producto/6",
+							"raw": "{{url_local}}/handmade/productos",
 							"host": [
 								"{{url_local}}"
 							],
 							"path": [
 								"handmade",
-								"producto",
-								"6"
+								"productos"
 							]
 						}
 					},
@@ -263,7 +404,7 @@
 							"mode": "formdata",
 							"formdata": [
 								{
-									"key": "picture",
+									"key": "imagen",
 									"type": "file",
 									"src": "/C:/Users/mksss/OneDrive/Imágenes/Saved Pictures/pugo.jpg"
 								}
@@ -421,61 +562,14 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_local}}/handmade/orden/14",
+							"raw": "{{url_local}}/handmade/orden/2",
 							"host": [
 								"{{url_local}}"
 							],
 							"path": [
 								"handmade",
 								"orden",
-								"14"
-							]
-						}
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Listar",
-			"item": [
-				{
-					"name": "/clientes",
-					"request": {
-						"method": "GET",
-						"header": [],
-						"url": null
-					},
-					"response": []
-				}
-			]
-		},
-		{
-			"name": "Metodo",
-			"item": [
-				{
-					"name": "/handmade/metodo",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"metodoTipo\":\"1\",\r\n    \"metodoNro\":\"75889666\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": {
-							"raw": "{{url_local}}/handmade/metodo/",
-							"host": [
-								"{{url_local}}"
-							],
-							"path": [
-								"handmade",
-								"metodo",
-								""
+								"2"
 							]
 						}
 					},
@@ -492,7 +586,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_local}}/handmade/filtros?categoria_id=1",
+							"raw": "{{url_local}}/handmade/filtros?nombre=caja",
 							"host": [
 								"{{url_local}}"
 							],
@@ -502,8 +596,8 @@
 							],
 							"query": [
 								{
-									"key": "categoria_id",
-									"value": "1"
+									"key": "nombre",
+									"value": "caja"
 								}
 							]
 						}
@@ -540,7 +634,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_local}}/handmade/fdetalle?cantidad=8",
+							"raw": "{{url_local}}/handmade/fdetalle?cantidad=9",
 							"host": [
 								"{{url_local}}"
 							],
@@ -551,7 +645,7 @@
 							"query": [
 								{
 									"key": "cantidad",
-									"value": "8"
+									"value": "9"
 								}
 							]
 						}
@@ -612,19 +706,52 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{url_local}}/handmade/buscarCli?nombre=Marigrace",
+							"raw": "{{url_local}}/handmade/buscar-cliente?nombre=Marigrace",
 							"host": [
 								"{{url_local}}"
 							],
 							"path": [
 								"handmade",
-								"buscarCli"
+								"buscar-cliente"
 							],
 							"query": [
 								{
 									"key": "nombre",
 									"value": "Marigrace"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Facturación",
+			"item": [
+				{
+					"name": "New Request",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"ordenId\":2,\r\n    \"tipoComprobante\":\"BOLETA\",\r\n    \"numeroDocumento\":72750134\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/facturacion/generar-comprobante/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"facturacion",
+								"generar-comprobante",
+								""
 							]
 						}
 					},

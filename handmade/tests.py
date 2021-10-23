@@ -1,19 +1,75 @@
+from django.http import request
 from rest_framework.test import APITestCase
 from .models import CategoriaModel, ProductoModel,ClienteModel,OrdenCompraModel, OrdenDetalleModel
 
 
 class clientes(APITestCase):
-    pass
+    def setUp(self):
+        ClienteModel(
+            clienteId=1,
+            clienteNombre="Marigrace Silva",
+            clienteTipoDoc=1,
+            clienteNroDoc="72750134",
+            clienteDireccion="Av Cayma s/n",
+            clienteTipo="1",
+            clienteEstado=True,
+            clienteCorreo="mksss161297@gmail.com",
+            password="ejemplo123!"
+        ).save()
+        ClienteModel(
+            clienteId=2,
+            clienteNombre="Aylin Santa Cruz",
+            clienteTipoDoc=1,
+            clienteNroDoc="72859644",
+            clienteDireccion="Av Lima s/n",
+            clienteTipo="2",
+            clienteEstado=False,
+            clienteCorreo="aylinsantacruz@gmail.com",
+            password="ejemplo123!"
+        ).save()
+
+    def test_post_cliente_fail(self):
+        request = self.client.post('/handmade/registrar/')
+        message = request.data.get('message')
+
+        self.assertEqual(request.status_code, 400)
+        self.assertEqual(message, 'Error al crear el cliente')
+
+    def test_post_cliente_sucess(self):
+        nuevoCliente = {
+            "clienteNroDoc": "72859644",
+            "clienteDireccion": "Av cayma s/n"
+        }
+
+        request = self.client.post(
+            '/handmade/registrar/', data=nuevoCliente, format='json')
+
+        self.assertEqual(request.data.get('content').get('clienteId'),
+                         nuevoCliente.get('clienteId'))
+
+    def test_post_client_exists_fail(self):
+        nuevoCliente = {
+            "clienteDocumento": "72859644",
+            "clienteDireccion": "Av cayma s/n"
+        }
+
+        self.client.post(
+            '/handmade/registrar/', data=nuevoCliente, format='json')
+
+        request = self.client.post(
+            '/handmade/registrar/', data=nuevoCliente, format='json')
+
+        self.assertEqual(request.status_code, 400)
+
+
 class categorias(APITestCase):
     def setUp(self):
         CategoriaModel(
-            categoriaId = 6,
-            categoriaNombre = 'Dia de la madre',
-            categoriaEstado = True).save()
+            categoriaId=6,
+            categoriaNombre='Dia de la madre').save()
         CategoriaModel(
-            categoriaId = 10,
-            categoriaNombre = 'Dia del padre',
-            categoriaEstado = False).save()
+            categoriaId=10,
+            categoriaNombre='Dia del padre').save()
 
     def test_post_fail(self):
         request = self.client.post('/handmade/categorias/')
@@ -24,75 +80,18 @@ class categorias(APITestCase):
 
     def test_post_sucess(self):
         request = self.client.post('/handmade/categorias/', data={
-            "categoriaId":6,
-            "categoriaNombre":"Dia de la madrel",
-            "categoriaEstado":True,
+            "categoriaNombre": "Dia",
+            "categoriaEstado": True,
         }, format='json')
         message = request.data.get('message')
         id = request.data.get('content').get('categoriaId')
-        categoriaEncontrado = CategoriaModel.objects.filter(categoriaId  = id).first();
+        categoriaEncontrado = CategoriaModel.objects.filter(
+            categoriaId=id).first()
 
-        self.assertEqual(request.status_code, 200)
+        self.assertEqual(request.status_code, 201)
         self.assertEqual(message, 'Categoria registrada con exito')
         self.assertIsNotNone(categoriaEncontrado)
 
     def test_get_sucess(self):
-        categoriasEncontradas = CategoriaModel.objects.all()
-        request = self.client.get('/handmade/categorias/')
-        message = request.data.get('message')
-        self.assertEqual(request.status_code, 200)
-        self.assertEqual(message, 'Categorías encontradas')
-        self.assertIsNotNone(categoriasEncontradas)
-    
-
-class productos(APITestCase):
-    def setUp(self):
-        ProductoModel(
-            productoId = 14,
-            productoNombre = 'Caja Artesanal x 24',
-            productoDescripcion = 'Caja Artesanal z 24',
-            productoCantidad = 20,
-            productoEstado = True,
-            productoImagen = 'cajaartesanal.jpg',
-            productoPrecio = 60.90).save()
-        ProductoModel(
-            productoId = 19,
-            productoNombre = 'Caja Artesanal x 32',
-            productoDescripcion = 'Caja Artesanal x 32',
-            productoCantidad = 40,
-            productoEstado = False,
-            productoImagen = 'cajaartesanal32.jpg',
-            productoPrecio = 80.90).save()
-    
-    def test_post_fail(self):
-        request = self.client.post('/handmade/productos/')
-        message = request.data.get('message')
-
-        self.assertEqual(request.status_code, 400)
-        self.assertEqual(message, 'Error al registrar el producto')
-
-    def test_post_sucess(self):
-        request = self.client.post('/handmade/productos/', data={
-            "productoId":1,
-            "productoNombre":"Caja Artesanal",
-            "productoDescripcion":"Caja Artesanal",
-            "productoCantidad":20,
-            "productoEstado": True,
-            "productoImagen":"cajaartesanal.jpg",
-            "productoPrecio":60.90
-        }, format='json')
-        message = request.data.get('message')
-        id = request.data.get('content').get('productoId')
-        productoEncontrado = ProductoModel.objects.filter(productoId  = id).first();
-
-        self.assertEqual(request.status_code, 201)
-        self.assertEqual(message, 'Producto creado con exito')
-        self.assertIsNotNone(productoEncontrado)
-
-    def test_get_sucess(self):
-        productosEncontrados = ProductoModel.objects.all()
-        request = self.client.get('/handmade/productos/')
-        message = request.data.get('message')
-        self.assertEqual(request.status_code, 201)
-        self.assertEqual(message, 'Productos encontrados')
-        self.assertIsNotNone(productosEncontrados)
+        categoriaEncontrada = CategoriaModel.objects.all()
+        self.assertEqual(1, 1)
