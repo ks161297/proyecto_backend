@@ -1,7 +1,7 @@
 from django.urls import path
-from .views import  BusquedaCliente, CategoriaController, ClientesController, CustomPayloadController, DetallesController, FiltrosDetalleController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
+from .views import  BusquedaCliente, CategoriaController, ClientesController, CustomPayloadController, DetallesController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
 # , LoginController, LogoutController
-from rest_framework_simplejwt.views import TokenObtainPairView, TokenRefreshView, TokenVerifyView
+from rest_framework_simplejwt.views import  TokenRefreshView, TokenVerifyView
 urlpatterns = [
     # Registro Cliente - Buscar todos los clientes. 
     path('registrar/', RegistroClienteController.as_view()),
@@ -34,7 +34,7 @@ urlpatterns = [
     # Busquedas-filtros
     path('filtros', FiltrosProductosController.as_view()),
     path('forden', FiltrosOrdenesController.as_view()),
-    path('fdetalle', FiltrosDetalleController.as_view()),
+    #path('fdetalle', FiltrosDetalleController.as_view()),
     path('prodCat', ProductoxCategoriaController.as_view()),
     path('ordenCli', OrdenxClienteController.as_view()),
 
