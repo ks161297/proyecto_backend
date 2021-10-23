@@ -1,5 +1,7 @@
-from rest_framework import request, serializers
-from .models import CategoriaModel, ClienteModel, ProductoModel
+
+from rest_framework import serializers
+from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
+from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
 
 
 class RegistroClienteSerializer(serializers.ModelSerializer):
@@ -23,6 +25,16 @@ class RegistroClienteSerializer(serializers.ModelSerializer):
         #fields = '__all__'
         exclude = ['groups','user_permissions','is_superuser','last_login','is_active','is_staff']
         extra_kwargs = {
+            'password':{
+                'write_only':True
+            }
+        }
+
+class clienteSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ClienteModel
+        fields = '__all__'
+        extra_kwargs = {
             'clientePassword':{
                 'write_only':True
             }
@@ -37,7 +49,12 @@ class ProductosSerializer(serializers.ModelSerializer):
     class Meta:
         model = ProductoModel
         fields = '__all__'
-
+        
+class ProductoSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = ProductoModel
+        #fields = '__all__'
+        exclude = ['categoria']
 
 class DetalleOrdenSerializer(serializers.Serializer):
     cantidad = serializers.IntegerField(required=True)
@@ -45,4 +62,32 @@ class DetalleOrdenSerializer(serializers.Serializer):
 
 class OrdenCompraSerializer(serializers.Serializer):
     cliente_id = serializers.IntegerField(min_value=0, required=True)
-    detalle = DetalleOrdenSerializer(many=True, required=True)
+    detalle = DetalleOrdenSerializer(many=True)
+
+class DetallesModelSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrdenDetalleModel
+        exclude = ['ordenCompra']
+        depth = 1
+
+class OperacionOrdenSerializer(serializers.ModelSerializer):
+    detallePedido = DetallesModelSerializer(many=True)
+    class Meta:
+        model = OrdenCompraModel
+        fields = '__all__'
+        depth = 1
+
+class OrdenesSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = OrdenCompraModel
+        fields = '__all__'
+
+class CustomPayloadSerializer(TokenObtainPairSerializer):
+    
+    @classmethod
+    def get_token(cls, user: ClienteModel):
+        token = super(CustomPayloadSerializer, cls).get_token(user)
+        # print(token)
+        token['user_mail'] = user.clienteCorreo
+        token['mensaje'] = 'Custom'
+        return token

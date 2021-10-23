@@ -1,0 +1,662 @@
+{
+	"info": {
+		"_postman_id": "938c5952-42c1-4335-acdf-97c3e7a2170a",
+		"name": "Handmade",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Clientes",
+			"item": [
+				{
+					"name": "Administrador",
+					"item": [
+						{
+							"name": "/handmade/cliente",
+							"request": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url_local}}/handmade/cliente/2",
+									"host": [
+										"{{url_local}}"
+									],
+									"path": [
+										"handmade",
+										"cliente",
+										"2"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/handmade/cliente",
+							"request": {
+								"method": "PUT",
+								"header": [],
+								"url": {
+									"raw": "{{url_local}}/handmade/cliente/1",
+									"host": [
+										"{{url_local}}"
+									],
+									"path": [
+										"handmade",
+										"cliente",
+										"1"
+									]
+								}
+							},
+							"response": []
+						},
+						{
+							"name": "/handmade/cliente",
+							"request": {
+								"method": "DELETE",
+								"header": [],
+								"url": {
+									"raw": "{{url_local}}/handmade/cliente/1",
+									"host": [
+										"{{url_local}}"
+									],
+									"path": [
+										"handmade",
+										"cliente",
+										"1"
+									]
+								}
+							},
+							"response": []
+						}
+					]
+				},
+				{
+					"name": "/handmade/registrar",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"clienteNombre\":\"Marigrace Silva\",\r\n    \"clienteTipoDoc\":2,\r\n    \"clienteNroDoc\":78596633,\r\n    \"clienteDireccion\":\"Av Cayma\",\r\n    \"clienteTipo\":2,\r\n    \"clienteCorreo\":\"mksss@gmail.com\",\r\n    \"password\":\"Welcome123!\"\r\n  }",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/registrar/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"registrar",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categoria",
+			"item": [
+				{
+					"name": "/handmade/categorias",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoriaNombre\":\"Dia del niño\",\r\n    \"categoriaEstado\": \"True\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/categorias/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"categorias",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/categorias/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"categorias",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/categorias",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoriaNombre\":\"Aniversarios\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/categoria/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"categoria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/categorias",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/categoria/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"categoria",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Productos",
+			"item": [
+				{
+					"name": "/handmade/productos",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoNombre\":\"Caja Artesanal 1\",\r\n    \"productoDescripcion\": \"Detalles Especiales\",\r\n    \"productoPrecio\":\"40\",\r\n    \"productoCantidad\":100,\r\n    \"productoImagen\":\"http://res.cloudinary.com/dvnfpdtlz/image/upload/v1633996383/ayz9xspo1f3uyyptbtee.jpg\",\r\n    \"categoria\":2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/productos/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"productos",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/producto/6",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"producto",
+								"6"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Subir imagen",
+			"item": [
+				{
+					"name": "/handmande/subir-imagen",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "picture",
+									"type": "file",
+									"src": "/C:/Users/mksss/OneDrive/Imágenes/Saved Pictures/pugo.jpg"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/subir-imagen/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"subir-imagen",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Producto/<:id>",
+			"item": [
+				{
+					"name": "/handmade/producto/:id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/producto/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/producto/:id",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoNombre\":\"Caja musical pequeña\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/producto/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/producto/:id",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"productoNombre\":\"Caja musical\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/producto/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "/handmade/producto/:id",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/producto/1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"producto",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orden",
+			"item": [
+				{
+					"name": "/handmade/orden",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"cliente_id\":1,\r\n    \"detalle\":[\r\n        {\r\n            \"producto_id\":1,\r\n            \"cantidad\" :2,\r\n            \"metodo_id\":1\r\n\r\n        }\r\n        \r\n    ]\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/orden/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"orden",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "New Request",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/orden/14",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"orden",
+								"14"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Listar",
+			"item": [
+				{
+					"name": "/clientes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": null
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Metodo",
+			"item": [
+				{
+					"name": "/handmade/metodo",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"metodoTipo\":\"1\",\r\n    \"metodoNro\":\"75889666\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url_local}}/handmade/metodo/",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"metodo",
+								""
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consultas",
+			"item": [
+				{
+					"name": "Productos",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/filtros?categoria_id=1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"filtros"
+							],
+							"query": [
+								{
+									"key": "categoria_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Compra",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/forden?direccion=Av",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"forden"
+							],
+							"query": [
+								{
+									"key": "direccion",
+									"value": "Av"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Detalles",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/fdetalle?cantidad=8",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"fdetalle"
+							],
+							"query": [
+								{
+									"key": "cantidad",
+									"value": "8"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Producto Categorias",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/prodCat?categoria_id=1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"prodCat"
+							],
+							"query": [
+								{
+									"key": "categoria_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Orden Cliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/ordenCli?cliente_id=1",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"ordenCli"
+							],
+							"query": [
+								{
+									"key": "cliente_id",
+									"value": "1"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "BuscarCliente",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url_local}}/handmade/buscarCli?nombre=Marigrace",
+							"host": [
+								"{{url_local}}"
+							],
+							"path": [
+								"handmade",
+								"buscarCli"
+							],
+							"query": [
+								{
+									"key": "nombre",
+									"value": "Marigrace"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url_local",
+			"value": "127.0.0.1:8000"
+		}
+	]
+}

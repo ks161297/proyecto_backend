@@ -40,7 +40,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
-    #'django.contrib.admin',
+    'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
@@ -49,12 +49,15 @@ INSTALLED_APPS = [
     'handmade',
     'facturacion',
     'rest_framework',
+    'rest_framework_simplejwt',
     'cloudinary',
+    'corsheaders'
 ]
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
@@ -141,7 +144,7 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-AUTH_USER_MODEL = 'handmade.ClienteModel'
+
 
 REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': {
@@ -149,10 +152,13 @@ REST_FRAMEWORK = {
     }
 }
 
+from datetime import timedelta
+
 SIMPLE_JWT = {
-    'USER_ID_FIELD': 'clienteId',
-    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
+    'USER_ID_FIELD':'clienteId',
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1)  
 }
+AUTH_USER_MODEL = 'handmade.ClienteModel'
 
 cloudinary.config(
     cloud_name = environ.get('CLOUD_NAME'),
@@ -161,3 +167,8 @@ cloudinary.config(
 
 )
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CORS_ALLOW_ALL_ORIGINS = True
+
+CORS_ALLOW_METHODS = ['GET', 'POST']
+
+CORS_ALLOW_HEADERS = ['Content-Type', 'origin', 'Authorization']
