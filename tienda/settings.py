@@ -11,7 +11,6 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
 from os import environ
 import cloudinary
 import cloudinary.uploader
@@ -52,7 +51,6 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'cloudinary',
     'corsheaders',
-    'facturacion'
 ]
 
 MIDDLEWARE = [
@@ -145,12 +143,13 @@ STATIC_URL = '/static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
-
+AUTH_USER_MODEL = 'handmade.ClienteModel'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': {
+    # sirve para indicar que la clase encargada de la authenticacion de las rutas de mi API REST las realizara la libreria rest_framework_simplejwt
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    }
+    )
 }
 
 from datetime import timedelta
@@ -159,7 +158,6 @@ SIMPLE_JWT = {
     'USER_ID_FIELD':'clienteId',
     'ACCESS_TOKEN_LIFETIME': timedelta(hours=1)  
 }
-AUTH_USER_MODEL = 'handmade.ClienteModel'
 
 cloudinary.config(
     cloud_name = environ.get('CLOUD_NAME'),
