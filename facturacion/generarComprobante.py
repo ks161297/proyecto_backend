@@ -1,4 +1,6 @@
 from datetime import datetime
+
+from handmade.serializer import DetalleOrdenSerializer
 from .models import ComprobanteModel
 from handmade.models import OrdenDetalleModel,OrdenCompraModel
 from django.db import connection
@@ -6,13 +8,13 @@ from requests import post
 from os import environ
 
 
-def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, documento_cliente: str):
+def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, documento_cliente: str, detalle: OrdenDetalleModel):
 
     comprobante_creado = ComprobanteModel.objects.filter(
         orden=orden.ordenId).first()
 
     if comprobante_creado:
-        return 'El pedido ya tiene un comprobante'
+        return 'La orden ya tiene un comprobante'
 
     operacion = 'generar_comprobante'
     if tipo_de_comprobante == 1:
@@ -41,7 +43,7 @@ def crearComprobante(tipo_de_comprobante: int, orden: OrdenCompraModel, document
     moneda = 1
     porcentaje_de_igv = 18
 
-    total = float(orden.ordenTotal)
+    total = float(detalle.ordenDetallePrecioTotal)
 
     # una vez generado el comprobante con el tipo de formato no se puede cambiar
     formato_de_pdf = 'TICKET'

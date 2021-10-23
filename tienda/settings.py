@@ -11,6 +11,7 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+from datetime import timedelta
 from os import environ
 import cloudinary
 import cloudinary.uploader
@@ -143,9 +144,14 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 AUTH_USER_MODEL = 'handmade.ClienteModel'
 
 REST_FRAMEWORK = {
-    'DEFAULT_AUTHENTICATION_CLASSES': (
+    'DEFAULT_AUTHENTICATION_CLASSES': {
         'rest_framework_simplejwt.authentication.JWTAuthentication',
-    )
+    }
+}
+
+SIMPLE_JWT = {
+    'USER_ID_FIELD': 'clienteId',
+    'ACCESS_TOKEN_LIFETIME': timedelta(hours=1),
 }
 
 cloudinary.config(

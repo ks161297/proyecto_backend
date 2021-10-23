@@ -1,9 +1,17 @@
 from django.urls import path
 
-from .views import CategoriaController, OrdenCompraController, ProductoController, ProductosController, RegistroClienteController, SubirImagenController
+from .views import (CategoriaController,
+                    OrdenCompraController,
+                    ProductoController,
+                    ProductosController,
+                    RegistroClienteController,
+                    SubirImagenController)
+from rest_framework_simplejwt.views import(TokenObtainPairView, TokenRefreshView)
 
 urlpatterns = [
     path('registrar/', RegistroClienteController.as_view()),
+    path('login', TokenObtainPairView.as_view()),
+    # path('refresh-session', TokenRefreshView.as_view()),
     path('buscar-cliente/<int:id>', RegistroClienteController.as_view()),
     path('categorias/', CategoriaController.as_view()),
     path('categoria/<int:id>', CategoriaController.as_view()),
