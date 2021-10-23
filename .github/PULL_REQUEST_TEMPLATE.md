@@ -10,5 +10,8 @@ Por favor selecciona si el PR cumple los siguientes requerimientos:
 - [ ] Implementación de la facturación
 
 
+### Cual es la nueva funcionalidad
+- ...
+
 
 
