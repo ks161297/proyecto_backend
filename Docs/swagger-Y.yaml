@@ -1,0 +1,875 @@
+swagger: '2.0'
+info:
+  version: '1.0'
+  title: Handmade
+  contact:
+    name: Marigrace Silva
+    email: mksss161297@gmail.com
+host: 127.0.0.1:8000
+basePath: /
+securityDefinitions: {}
+schemes:
+  - http
+  - https
+consumes:
+  - application/json
+produces:
+  - application/json
+paths:
+  /handmade/cliente/{id}:
+    get:
+      summary: /handmade/cliente/:id
+      tags:
+        - Administrador
+      operationId: /handmade/cliente/:id
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      summary: /handmade/cliente{id}
+      tags:
+        - Administrador
+      operationId: /handmade/cliente/:id1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1clienterequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      summary: /handmade/cliente
+      tags:
+        - Administrador
+      operationId: /handmade/cliente/:id2
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/clientes:
+    get:
+      summary: /handmade/clientes
+      tags:
+        - Administrador
+      operationId: /handmade/clientes
+      deprecated: false
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/registrar/:
+    post:
+      summary: /handmade/registrar/
+      tags:
+        - Clientes
+      operationId: /handmade/registrar/
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1registrarrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/act-perfil/{id}:
+    patch:
+      summary: /handmade/act-perfil/:id
+      tags:
+        - Clientes
+      operationId: /handmade/act-perfil/:id
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/Act-perfil-Request'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/categorias/:
+    post:
+      summary: /handmade/categorias/
+      tags:
+        - Categoria
+      operationId: /handmade/categorias/
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1categoriasrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    get:
+      summary: /handmade/categorias/
+      tags:
+        - Categoria
+      operationId: /handmade/categorias/*
+      deprecated: false
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/categoria/{id}:
+    put:
+      summary: /handmade/categoria/:id
+      tags:
+        - Categoria
+      operationId: /handmade/categoria/id
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1categoriasrequest1'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      summary: /handmade/categoria/id
+      tags:
+        - Categoria
+      operationId: Delete/handmade/categoria/id1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/login-custom:
+    post:
+      summary: /login-custom
+      tags:
+        - Login
+      operationId: /login-custom
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1login-custom-request'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/refresh-token:
+    post:
+      summary: refresh
+      tags:
+        - Login
+      operationId: refresh
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/refreshrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/me:
+    get:
+      summary: Perfil
+      tags:
+        - Login
+      operationId: Perfil
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Authorization
+          in: header
+          required: false
+          default: Bearer {token}
+          type: string
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/verify-token:
+    post:
+      summary: verify-token
+      tags:
+        - Login
+      operationId: verify-token
+      deprecated: false
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/productos/:
+    post:
+      summary: /handmade/productos/
+      tags:
+        - Productos
+      operationId: /handmade/productos/
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1productosrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    get:
+      summary: /handmade/productos/
+      tags:
+        - Productos
+      operationId: /handmade/productos/*
+      deprecated: false
+      produces:
+        - application/json
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/subir-imagen/:
+    post:
+      summary: /handmande/subir-imagen
+      tags:
+        - Subir imagen
+      operationId: /handmande/subir-imagen
+      deprecated: false
+      produces:
+        - application/json
+      consumes:
+        - application/x-www-form-urlencoded
+      parameters:
+        - name: imagen
+          in: formData
+          required: true
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/producto/{id}:
+    get:
+      summary: /handmade/producto/id
+      tags:
+        - Producto/{:id}
+      operationId: /handmade/producto/id
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    patch:
+      summary: /handmade/producto/:id
+      tags:
+        - Producto/{:id}
+      operationId: /handmade/producto/:id1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1producto~1%3Aidrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    put:
+      summary: /handmade/producto/:id1
+      tags:
+        - Producto/{:id}
+      operationId: /handmade/producto/:id2
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1producto~1%3Aidrequest1'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+    delete:
+      summary: /handmade/producto/:id2
+      tags:
+        - Producto/{:id}
+      operationId: Delete/handmade/producto/:id1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/orden/:
+    post:
+      summary: /handmade/orden/
+      tags:
+        - Orden
+      operationId: /handmade/orden/
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/~1handmade~1ordenrequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/orden/{id}:
+    get:
+      summary: /handmade/orden/id
+      tags:
+        - Orden
+      operationId: /handmade/orden/id1
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: id
+          in: path
+          required: true
+          type: integer
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/filtros:
+    get:
+      summary: Productos
+      tags:
+        - Consultas
+      operationId: /handmade/filtros
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: nombre
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: precio
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: created_at
+          in: query
+          required: false
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/forden:
+    get:
+      summary: Compra
+      tags:
+        - Consultas
+      operationId: Compra
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: direccion
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: correo
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: estado
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: fecha
+          in: query
+          required: false
+          type: string
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/prodCat:
+    get:
+      summary: Producto x Categorias
+      tags:
+        - Consultas
+      operationId: /handmade/prodCat
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: categoria_id
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/ordenCli:
+    get:
+      summary: Orden Cliente
+      tags:
+        - Consultas
+      operationId: /handmade/ordenCli
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: cliente_id
+          in: query
+          required: true
+          type: integer
+          format: int32
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /handmade/buscar-cliente:
+    get:
+      summary: BuscarCliente
+      tags:
+        - Consultas
+      operationId: /handmade/buscar-cliente
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: nombre
+          in: query
+          required: false
+          type: string
+          description: ''
+        - name: nro_doc
+          in: query
+          required: false
+          type: integer
+          format: int32
+          description: ''
+      responses:
+        '200':
+          description: ''
+          headers: {}
+  /facturacion/generar-comprobante/:
+    post:
+      summary: Facturacion
+      tags:
+        - Facturación
+      operationId: /facturacion/generar-comprobante
+      deprecated: false
+      produces:
+        - application/json
+      parameters:
+        - name: Body
+          in: body
+          required: true
+          description: ''
+          schema:
+            $ref: '#/definitions/NewRequestRequest'
+      responses:
+        '200':
+          description: ''
+          headers: {}
+definitions:
+  /handmade/clienterequest:
+    title: /handmade/clienterequest
+    example:
+      clienteNombre: Marigrace Silva Salas
+      clienteTipoDoc: 1
+      clienteNroDoc: '72750134'
+      clienteDireccion: Av Cayma
+      clienteTipo: 1
+      clienteCorreo: mksss161297@gmail.com
+      password: Welcome123!
+    type: object
+    properties:
+      clienteNombre:
+        type: string
+      clienteTipoDoc:
+        type: integer
+        format: int32
+      clienteNroDoc:
+        type: string
+      clienteDireccion:
+        type: string
+      clienteTipo:
+        type: integer
+        format: int32
+      clienteCorreo:
+        type: string
+      password:
+        type: string
+    required:
+      - clienteNombre
+      - clienteTipoDoc
+      - clienteNroDoc
+      - clienteDireccion
+      - clienteTipo
+      - clienteCorreo
+      - password
+  /handmade/registrarrequest:
+    title: /handmade/registrarrequest
+    example:
+      clienteNombre: ''
+      clienteTipoDoc: null
+      clienteNroDoc: null
+      clienteDireccion: ' '
+      clienteTipo: null
+      clienteCorreo: '@'
+      password: '!'
+    type: object
+    properties:
+      clienteNombre:
+        type: string
+      clienteTipoDoc:
+        type: integer
+        format: int32
+      clienteNroDoc:
+        type: integer
+        format: int32
+      clienteDireccion:
+        type: string
+      clienteTipo:
+        type: integer
+        format: int32
+      clienteCorreo:
+        type: string
+      password:
+        type: string
+    required:
+      - clienteNombre
+      - clienteTipoDoc
+      - clienteNroDoc
+      - clienteDireccion
+      - clienteTipo
+      - clienteCorreo
+      - password
+  Act-perfil-Request:
+    title: Act-perfil-Request
+    example:
+      clienteNroDoc: '72750134'
+    type: object
+    properties:
+      clienteNroDoc:
+        type: string
+    required:
+      - clienteNroDoc
+  /handmade/categoriasrequest:
+    title: /handmade/categoriasrequest
+    example:
+      categoriaNombre: Aniversarios
+      categoriaEstado: 'True'
+    type: object
+    properties:
+      categoriaNombre:
+        type: string
+      categoriaEstado:
+        type: string
+    required:
+      - categoriaNombre
+      - categoriaEstado
+  /handmade/categoriasrequest1:
+    title: /handmade/categoriasrequest1
+    example:
+      categoriaNombre: Aniversarios
+    type: object
+    properties:
+      categoriaNombre:
+        type: string
+    required:
+      - categoriaNombre
+  /login-custom-request:
+    title: /login-custom-request
+    example:
+      clienteCorreo: cccaacc@gmail.com
+      password: Welcome123!
+    type: object
+    properties:
+      clienteCorreo:
+        type: string
+      password:
+        type: string
+    required:
+      - clienteCorreo
+      - password
+  refreshrequest:
+    title: refreshrequest
+    example:
+      refresh: ''
+    type: object
+    properties:
+      refresh:
+        type: string
+    required:
+      - refresh
+  /handmade/productosrequest:
+    title: /handmade/productosrequest
+    example:
+      productoNombre: Caja Artesanal 1
+      productoDescripcion: Detalles Especiales
+      productoPrecio: '40'
+      productoCantidad: 100
+      productoImagen: >-
+        http://res.cloudinary.com/dvnfpdtlz/image/upload/v1633996383/ayz9xspo1f3uyyptbtee.jpg
+      categoria: 1
+    type: object
+    properties:
+      productoNombre:
+        type: string
+      productoDescripcion:
+        type: string
+      productoPrecio:
+        type: string
+      productoCantidad:
+        type: integer
+        format: int32
+      productoImagen:
+        type: string
+      categoria:
+        type: integer
+        format: int32
+    required:
+      - productoNombre
+      - productoDescripcion
+      - productoPrecio
+      - productoCantidad
+      - productoImagen
+      - categoria
+  /handmade/producto/:idrequest:
+    title: /handmade/producto/:idrequest
+    example:
+      productoNombre: Caja musical pequeña
+    type: object
+    properties:
+      productoNombre:
+        type: string
+    required:
+      - productoNombre
+  /handmade/producto/:idrequest1:
+    title: /handmade/producto/:idrequest1
+    example:
+      productoNombre: Caja musical
+      productoDescripcion: s
+      productoImagen: pugo.jpg
+      productoPrecio: 19.1
+      categoria: 2
+    type: object
+    properties:
+      productoNombre:
+        type: string
+      productoDescripcion:
+        type: string
+      productoImagen:
+        type: string
+      productoPrecio:
+        type: number
+        format: double
+      categoria:
+        type: integer
+        format: int32
+    required:
+      - productoNombre
+      - productoDescripcion
+      - productoImagen
+      - productoPrecio
+      - categoria
+  /handmade/ordenrequest:
+    title: /handmade/ordenrequest
+    example:
+      cliente_id: 1
+      detalle:
+        - producto_id: 1
+          cantidad: 2
+        - producto_id: 1
+          cantidad: 2
+    type: object
+    properties:
+      cliente_id:
+        type: integer
+        format: int32
+      detalle:
+        type: array
+        items:
+          $ref: '#/definitions/Detalle'
+    required:
+      - cliente_id
+      - detalle
+  Detalle:
+    title: Detalle
+    example:
+      producto_id: 1
+      cantidad: 2
+    type: object
+    properties:
+      producto_id:
+        type: integer
+        format: int32
+      cantidad:
+        type: integer
+        format: int32
+    required:
+      - producto_id
+      - cantidad
+  NewRequestRequest:
+    title: NewRequestRequest
+    example:
+      ordenId: 2
+      tipoComprobante: BOLETA
+      numeroDocumento: 72750134
+    type: object
+    properties:
+      ordenId:
+        type: integer
+        format: int32
+      tipoComprobante:
+        type: string
+      numeroDocumento:
+        type: integer
+        format: int32
+    required:
+      - ordenId
+      - tipoComprobante
+      - numeroDocumento
+tags:
+  - name: Administrador
+  - name: Clientes
+  - name: Categoria
+  - name: Login
+  - name: Productos
+  - name: Subir imagen
+  - name: Producto/<:id>
+  - name: Orden
+  - name: Consultas
+  - name: Facturación

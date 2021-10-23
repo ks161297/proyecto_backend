@@ -1,5 +1,6 @@
 from datetime import date, timedelta, timezone
 import datetime
+from django.contrib.admin.options import StackedInline
 from django.db.models.query import QuerySet
 import cloudinary
 from django.views.decorators.csrf import requires_csrf_token
@@ -28,12 +29,12 @@ class RegistroClienteController(ListCreateAPIView):
             return Response(data={
                 'message':'Cliente creado con exito',
                 'content':data.data
-            })
+            }, status=status.HTTP_201_CREATED)
         else:
             return Response(data={
                 'message':'Error al crear el cliente',
                 'content':data.errors
-            })
+            }, status=status.HTTP_400_BAD_REQUEST)
 class ClientesController(RetrieveAPIView):
 
     serializer_class = clienteSerializer
@@ -184,12 +185,12 @@ class CategoriaController(ListCreateAPIView):
             return Response(data={
                 'message':'Categoria registrada con exito',
                 'content': data.data
-            })
+            }, status=status.HTTP_201_CREATED)
         else:
             return Response(data={
                 'message':'Error al registrar la categoria',
                 'content': data.errors 
-            })
+            }, status=status.HTTP_400_BAD_REQUEST)
     def put(self, request:Request, id):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None:
@@ -523,14 +524,7 @@ class OrdenxClienteController(RetrieveAPIView):
             else:
                 ordenesEncontradas = OrdenCompraModel.objects.select_related().filter(cliente_id=cliente_id)
 
-        if ordenFecha:
-            mes = datetime.datetime.now() - timedelta(days=30)
-            #seismeses = (timezone.now() - datetime.timedelta(days=180))
-            #unanho = (timezone.now() - datetime.timedelta(days=365))
-            if ordenesEncontradas is not None:
-                ordenesEncontradas = ordenesEncontradas.filter(ordenFecha=mes).all()
-            else: 
-                ordenesEncontradas = OrdenCompraModel.objects.filter(ordenFecha=mes).all()
+       
 
         data = self.serializer_class(instance=ordenesEncontradas, many=True)
         return Response(data={
