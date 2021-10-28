@@ -44,7 +44,7 @@ class ClientesController(RetrieveAPIView):
 class ClienteController(RetrieveUpdateAPIView):
     serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
-    lookup_fields = ['clienteId']
+    lookup_fields = ['pk']
 
     def get(self, request:Request, id):
         clienteEncontrado = self.get_queryset().filter(clienteId = id).first()
