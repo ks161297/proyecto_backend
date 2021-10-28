@@ -1,11 +1,11 @@
-from rest_framework.generics import ListCreateAPIView
+from rest_framework.generics import CreateAPIView, ListCreateAPIView
 from .models import ComprobanteModel
 from .serializer import ComprobanteSerializer, ComprobanteModelSerializer
 from rest_framework.response import Response
 from .generarComprobante import crearComprobante
 
 
-class ComprobanteController(ListCreateAPIView):
+class ComprobanteController(CreateAPIView):
     serializer_class = ComprobanteSerializer
 
     def post(self, request):

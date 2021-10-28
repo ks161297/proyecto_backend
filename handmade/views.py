@@ -1,17 +1,13 @@
-from datetime import date, timedelta, timezone
-import datetime
-from django.contrib.admin.options import StackedInline
 from django.db.models.query import QuerySet
 import cloudinary
-from django.views.decorators.csrf import requires_csrf_token
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .permissions import CorreoPermission
-from .serializer import CategoriaSerializer, CustomPayloadSerializer, DetallesModelSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, OrdenesSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
+from .serializer import CategoriaSerializer, CustomPayloadSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, OrdenesSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
 from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 import cloudinary.uploader
 from rest_framework import status
@@ -35,8 +31,8 @@ class RegistroClienteController(CreateAPIView):
                 'message':'Error al crear el cliente',
                 'content':data.errors
             }, status=status.HTTP_400_BAD_REQUEST)
-class ClientesController(RetrieveAPIView):
 
+class ClientesController(RetrieveAPIView):
     serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
     def get(self, request:Request):
@@ -44,6 +40,21 @@ class ClientesController(RetrieveAPIView):
         return Response(data={
             'message':'Los clientes activos son:',
             'content': registros
+        })
+class ClienteController(RetrieveUpdateAPIView):
+    serializer_class = clienteSerializer
+    queryset = ClienteModel.objects.all()
+
+    def get(self, request:Request, id):
+        clienteEncontrado = self.get_queryset().filter(clienteId = id).first()
+        if not clienteEncontrado:
+            return Response(data={
+                'message':'El cliente no existe'
+            })
+        data = self.serializer_class(instance=clienteEncontrado)
+        return Response(data={
+            'message':'El cliente buscado es:',
+            'content':data.data
         })
 
     def patch(self, request:Request, id):
@@ -175,7 +186,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
             'content': serializador.data
         })
 
-class CategoriaController(ListCreateAPIView):
+class CategoriasController(ListCreateAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
     def post(self, request:Request):
@@ -191,6 +202,18 @@ class CategoriaController(ListCreateAPIView):
                 'message':'Error al registrar la categoria',
                 'content': data.errors 
             }, status=status.HTTP_400_BAD_REQUEST)
+    
+    def get(self, request):
+        data = self.serializer_class(instance=self.get_queryset(),many=True)
+        return Response(data={
+            'message':'Las categorias que existen son:',
+            'content': data.data
+        })
+    
+class CategoriaController(RetrieveUpdateDestroyAPIView):
+    queryset = CategoriaModel.objects.all()
+    serializer_class = CategoriaSerializer
+
     def put(self, request:Request, id):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None:
@@ -210,13 +233,7 @@ class CategoriaController(ListCreateAPIView):
                 'message':'Error al actualizar la categoria',
                 'content':serializador.errors
             })
-    def get(self, request):
-        data = self.serializer_class(instance=self.get_queryset(),many=True)
-        return Response(data={
-            'message':'Las categorias que existen son:',
-            'content': data.data
-        })
-    def delete(self, reques:Request, id):
+    def delete(self, request:Request, id):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None: 
             return Response(data={
@@ -230,7 +247,9 @@ class CategoriaController(ListCreateAPIView):
             'message':'Categoría eliminada con exito',
             'content': serializador.data
         })
-class ProductosController(RetrieveUpdateDestroyAPIView):
+    
+
+class ProductosController(ListCreateAPIView):
     serializer_class = ProductosSerializer
     queryset = ProductoModel.objects.all()
     def post(self, request:Request):
