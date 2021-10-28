@@ -22,8 +22,8 @@ class RegistroClienteSerializer(serializers.ModelSerializer):
     
     class Meta:
         model = ClienteModel
-        fields = '__all__'
-        #exclude = ['groups','user_permissions','is_superuser','last_login','is_active','is_staff']
+        #fields = '__all__'
+        exclude = ['groups','user_permissions','last_login','is_active','is_staff']
         extra_kwargs = {
             'password':{
                 'write_only':True
