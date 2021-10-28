@@ -11,7 +11,6 @@ schema_view = get_schema_view(
       default_version='Vx',
       description="API HANDMADE",
       contact=openapi.Contact(email="mksss16129@gmail.com"),
-      license=openapi.License(name="BSD License"),
    ),
    public=True,
    permission_classes=(permissions.AllowAny,),

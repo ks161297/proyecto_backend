@@ -54,7 +54,8 @@ INSTALLED_APPS = [
     'cloudinary',
     'corsheaders',
     'facturacion',
-    'drf_yasg'
+    'drf_yasg',
+    
 ]
 
 MIDDLEWARE = [
