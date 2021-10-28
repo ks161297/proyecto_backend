@@ -205,6 +205,18 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
 
+    def get(self, request:Request, id):
+        categoriaEncontrada = self.get_queryset().filter(categoriaId = id).first()
+        if not categoriaEncontrada:
+            return Response(data={
+                'message':'El producto no existe'
+            })
+        data = self.serializer_class(instance=categoriaEncontrada)
+        return Response(data={
+            'message':'La categoria buscada es:',
+            'content':data.data
+        })
+
     def put(self, request:Request, id):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None:
@@ -224,7 +236,7 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
                 'message':'Error al actualizar la categoria',
                 'content':serializador.errors
             })
-    def delete(self, request:Request, id, **kwargs):
+    def delete(self, request:Request, id):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None: 
             return Response(data={
