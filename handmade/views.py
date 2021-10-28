@@ -104,7 +104,7 @@ class PerfilUsuario(RetrieveAPIView):
 class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
     serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
     #Filtrar x id
     def get(self, request:Request, id):
         clienteEncontrado = self.get_queryset().filter(clienteId=id).first()
@@ -181,7 +181,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
 class CategoriasController(ListCreateAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
         if data.is_valid():
@@ -206,7 +206,7 @@ class CategoriasController(ListCreateAPIView):
 class CategoriaController(RetrieveUpdateDestroyAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
 
     def get(self, request:Request, id):
         categoriaEncontrada = self.get_queryset().filter(categoriaId = id).first()
@@ -258,7 +258,7 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
 class ProductosController(ListCreateAPIView):
     serializer_class = ProductosSerializer
     queryset = ProductoModel.objects.all()
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
 
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
@@ -282,7 +282,7 @@ class ProductosController(ListCreateAPIView):
         })
 
 class SubirImagenController(APIView):
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
 
     def post(self, request):
         file = request.data.get('imagen')
@@ -295,7 +295,7 @@ class SubirImagenController(APIView):
 class ProductoController(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductosSerializer
     queryset = ProductoModel.objects.all()
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]    
 
     def get(self, request:Request, id):
         productoEncontrado = self.get_queryset().filter(productoId = id).first()
