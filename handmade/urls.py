@@ -1,5 +1,5 @@
 from django.urls import path
-from .views import  BusquedaCliente, CategoriaController, CategoriasController, ClienteController, ClientesController, CustomPayloadController, DetallesController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
+from .views import  BusquedaCliente, CategoriaController, CategoriasController, ClientesController, CustomPayloadController, DetallesController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
 # , LoginController, LogoutController
 from rest_framework_simplejwt.views import  TokenRefreshView, TokenVerifyView
 
@@ -10,7 +10,7 @@ urlpatterns = [
 
     #Actualización parcial perfil usuario.
     path('clientes/', ClientesController.as_view()),
-    path('cliente/<int:id>', ClienteController.as_view()),
+    #path('cliente/<int:id>', ClienteController.as_view()),
 
     # Busqueda cliente x nombre ó doc
     path('buscar-cliente', BusquedaCliente.as_view()),

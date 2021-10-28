@@ -41,50 +41,8 @@ class ClientesController(RetrieveAPIView):
             'message':'Los clientes activos son:',
             'content': registros
         })
-class ClienteController(UpdateAPIView):
-    serializer_class = clienteSerializer
-    queryset = ClienteModel.objects.all()
-    lookup_fields = ['pk']
-    def patch(self, request:Request, id):
-        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
-        if clienteEncontrado is None:
-            return Response(data={
-                'message':"Cliente no existe",
-                'content': None
-            }, status=status.HTTP_404_NOT_FOUND)
-        serializador = clienteSerializer(clienteEncontrado, data=request.data, partial=True)
-        if serializador.is_valid():
-            serializador.save()
-            return Response(data={
-                'message':'Actualizado con exito',
-                'content': serializador.data
-            }, status=status.HTTP_201_CREATED)
-        else:
-            return Response(data={
-                'message':'Error al actualizar el registro',
-                'content': serializador.errors
-            }, status=status.HTTP_400_BAD_REQUEST)
 
-    #Actualizar
-    def put(self, request:Request, id):
-        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
-        if clienteEncontrado is None:
-            return Response(data={
-                'message':'Cliente no existe',
-                'content':None
-            })
-        serializador = RegistroClienteSerializer(data=request.data)
-        if serializador.is_valid():
-            serializador.update(instance=clienteEncontrado, validated_data=serializador.validated_data)
-            return Response(data={
-                'message':'Cliente actualizado con exito',
-                'content':serializador.data
-            })
-        else:
-            return Response(data={
-                'message':'Error al actualizar el cliente',
-                'content':serializador.errors
-            })
+    
 class BusquedaCliente(RetrieveAPIView):
     queryset = ClienteModel.objects.all()
     serializer_class =clienteSerializer
@@ -158,6 +116,49 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
             'message':'El cliente buscado es:',
             'content':data.data
         })
+    
+    def put(self, request:Request, id):
+        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
+        if clienteEncontrado is None:
+            return Response(data={
+                'message':'Cliente no existe',
+                'content':None
+            })
+        serializador = RegistroClienteSerializer(data=request.data)
+        if serializador.is_valid():
+            serializador.update(instance=clienteEncontrado, validated_data=serializador.validated_data)
+            return Response(data={
+                'message':'Cliente actualizado con exito',
+                'content':serializador.data
+            })
+        else:
+            return Response(data={
+                'message':'Error al actualizar el cliente',
+                'content':serializador.errors
+            })
+    
+    def patch(self, request:Request, id):
+        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
+        if clienteEncontrado is None:
+            return Response(data={
+                'message':"Cliente no existe",
+                'content': None
+            }, status=status.HTTP_404_NOT_FOUND)
+        serializador = clienteSerializer(clienteEncontrado, data=request.data, partial=True)
+        if serializador.is_valid():
+            serializador.save()
+            return Response(data={
+                'message':'Actualizado con exito',
+                'content': serializador.data
+            }, status=status.HTTP_201_CREATED)
+        else:
+            return Response(data={
+                'message':'Error al actualizar el registro',
+                'content': serializador.errors
+            }, status=status.HTTP_400_BAD_REQUEST)
+
+    #Actualizar
+ 
 
     
     #Eliminar
