@@ -44,6 +44,13 @@ class CategoriaSerializer(serializers.ModelSerializer):
     class Meta: 
         model = CategoriaModel
         fields = '__all__'
+        
+
+class CategoriaSerializere(serializers.ModelSerializer):
+    class Meta:
+        model = CategoriaModel
+        lookup_field = 'categoriaId'
+
 
 class ProductosSerializer(serializers.ModelSerializer):
     class Meta:
@@ -55,6 +62,7 @@ class ProductoSerializer(serializers.ModelSerializer):
         model = ProductoModel
         #fields = '__all__'
         exclude = ['categoria']
+        lookup_field = 'productoId'
 
 class DetalleOrdenSerializer(serializers.Serializer):
     cantidad = serializers.IntegerField(required=True)
