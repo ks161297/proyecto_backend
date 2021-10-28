@@ -17,4 +17,5 @@ class ManejoCliente(BaseUserManager):
         nuevoCliente=self.create_user(clienteCorreo, clienteNombre, clienteTipoDoc,clienteNroDoc,clienteTipo, clienteDireccion, clienteEstado,password)
         nuevoCliente.is_superuser=True
         nuevoCliente.is_staff=True
+        nuevoCliente.is_active=True
         nuevoCliente.save(using=self._db)
