@@ -1,6 +1,6 @@
 from django.db.models.query import QuerySet
 import cloudinary
-from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, ListAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -41,23 +41,10 @@ class ClientesController(RetrieveAPIView):
             'message':'Los clientes activos son:',
             'content': registros
         })
-class ClienteController(RetrieveUpdateAPIView):
+class ClienteController(UpdateAPIView):
     serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
     lookup_fields = ['pk']
-
-    def get(self, request:Request, id):
-        clienteEncontrado = self.get_queryset().filter(clienteId = id).first()
-        if not clienteEncontrado:
-            return Response(data={
-                'message':'El cliente no existe'
-            })
-        data = self.serializer_class(instance=clienteEncontrado)
-        return Response(data={
-            'message':'El cliente buscado es:',
-            'content':data.data
-        })
-
     def patch(self, request:Request, id):
         clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
         if clienteEncontrado is None:
@@ -77,6 +64,27 @@ class ClienteController(RetrieveUpdateAPIView):
                 'message':'Error al actualizar el registro',
                 'content': serializador.errors
             }, status=status.HTTP_400_BAD_REQUEST)
+
+    #Actualizar
+    def put(self, request:Request, id):
+        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
+        if clienteEncontrado is None:
+            return Response(data={
+                'message':'Cliente no existe',
+                'content':None
+            })
+        serializador = RegistroClienteSerializer(data=request.data)
+        if serializador.is_valid():
+            serializador.update(instance=clienteEncontrado, validated_data=serializador.validated_data)
+            return Response(data={
+                'message':'Cliente actualizado con exito',
+                'content':serializador.data
+            })
+        else:
+            return Response(data={
+                'message':'Error al actualizar el cliente',
+                'content':serializador.errors
+            })
 class BusquedaCliente(RetrieveAPIView):
     queryset = ClienteModel.objects.all()
     serializer_class =clienteSerializer
@@ -151,26 +159,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
             'content':data.data
         })
 
-    #Actualizar
-    def put(self, request:Request, id):
-        clienteEncontrado = ClienteModel.objects.filter(clienteId=id).first()
-        if clienteEncontrado is None:
-            return Response(data={
-                'message':'Cliente no existe',
-                'content':None
-            })
-        serializador = RegistroClienteSerializer(data=request.data)
-        if serializador.is_valid():
-            serializador.update(instance=clienteEncontrado, validated_data=serializador.validated_data)
-            return Response(data={
-                'message':'Cliente actualizado con exito',
-                'content':serializador.data
-            })
-        else:
-            return Response(data={
-                'message':'Error al actualizar el cliente',
-                'content':serializador.errors
-            })
+    
     #Eliminar
     def delete(self, request:Request, id):
         clienteEncontrado = ClienteModel.objects.filter(clienteId = id).first()
