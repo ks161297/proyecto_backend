@@ -50,7 +50,6 @@ INSTALLED_APPS = [
     'handmade',
     'rest_framework',
     'rest_framework_simplejwt',
-    'rest_framework_swagger',
     'cloudinary',
     'corsheaders',
     'facturacion',
