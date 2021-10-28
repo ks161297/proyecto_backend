@@ -2,7 +2,10 @@ from django.urls import path
 from .views import  BusquedaCliente, CategoriaController, ClientesController, CustomPayloadController, DetallesController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
 # , LoginController, LogoutController
 from rest_framework_simplejwt.views import  TokenRefreshView, TokenVerifyView
+
+
 urlpatterns = [
+    
     # Registro Cliente - Buscar todos los clientes. 
     path('registrar/', RegistroClienteController.as_view()),
 

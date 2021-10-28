@@ -34,10 +34,10 @@ class ClienteModel(AbstractBaseUser, PermissionsMixin):
 
     clienteId = models.AutoField(db_column='id', primary_key=True, null=False, unique=True)
     clienteNombre = models.CharField(db_column='nombre', max_length=50, null=False)
-    clienteTipoDoc = models.TextField(db_column='tipo_doc',choices=TIPO_DOCUMENTO)
+    clienteTipoDoc = models.IntegerField(db_column='tipo_doc',choices=TIPO_DOCUMENTO)
     clienteNroDoc = models.IntegerField(db_column='nro_doc',unique=True)
     clienteDireccion = models.CharField(db_column='direccion', max_length=100)
-    clienteTipo = models.TextField(db_column='tipo', choices=TIPO_CLIENTE)
+    clienteTipo = models.IntegerField(db_column='tipo', choices=TIPO_CLIENTE)
     clienteEstado = models.BooleanField(db_column='estado', null=False, default=True)
     clienteCorreo = models.EmailField(db_column='correo', max_length=50, unique=True)
     password = models.TextField(null=False)
@@ -48,7 +48,7 @@ class ClienteModel(AbstractBaseUser, PermissionsMixin):
     objects = ManejoCliente()
 
     USERNAME_FIELD = 'clienteCorreo'
-    REQUIRED_FIELDS = ['clienteNombre','clienteTipoDoc','clienteNroDoc','clienteDireccion', 'clienteTipo']
+    REQUIRED_FIELDS = ['clienteNombre','clienteTipoDoc','clienteNroDoc','clienteDireccion', 'clienteTipo','clienteEstado']
 
     class Meta:
         db_table = 'clientes'    

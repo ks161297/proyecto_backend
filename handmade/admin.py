@@ -3,6 +3,7 @@ from .models import ProductoModel, CategoriaModel
 # Register your models here.
 
 
+
 class CategoriaAdmin(admin.ModelAdmin):
     list_display = ['categoriaId', 'categoriaNombre', 'categoriaEstado']
     search_fields= ['categoriaNombre', 'categoriaEstado']
