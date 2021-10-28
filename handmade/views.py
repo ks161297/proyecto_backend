@@ -205,7 +205,7 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
 
-    def put(self, request:Request, id):
+    def put(self, request:Request, id, **kwargs):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None:
             return Response(data={
@@ -224,7 +224,7 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
                 'message':'Error al actualizar la categoria',
                 'content':serializador.errors
             })
-    def delete(self, request:Request, id):
+    def delete(self, request:Request, id, **kwargs):
         categoriaEncontrada = CategoriaModel.objects.filter(categoriaId = id).first()
         if categoriaEncontrada is None: 
             return Response(data={
