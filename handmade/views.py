@@ -13,7 +13,7 @@ import cloudinary.uploader
 from rest_framework import status
 from django.conf import settings
 from django.db import transaction
-from rest_framework.permissions import AllowAny, IsAuthenticated
+from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
 
 
 class RegistroClienteController(CreateAPIView):
@@ -181,7 +181,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
 class CategoriasController(ListCreateAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
         if data.is_valid():
@@ -206,7 +206,7 @@ class CategoriasController(ListCreateAPIView):
 class CategoriaController(RetrieveUpdateDestroyAPIView):
     queryset = CategoriaModel.objects.all()
     serializer_class = CategoriaSerializer
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get(self, request:Request, id):
         categoriaEncontrada = self.get_queryset().filter(categoriaId = id).first()
@@ -258,7 +258,7 @@ class CategoriaController(RetrieveUpdateDestroyAPIView):
 class ProductosController(ListCreateAPIView):
     serializer_class = ProductosSerializer
     queryset = ProductoModel.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
@@ -282,7 +282,7 @@ class ProductosController(ListCreateAPIView):
         })
 
 class SubirImagenController(APIView):
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def post(self, request):
         file = request.data.get('imagen')
@@ -295,7 +295,7 @@ class SubirImagenController(APIView):
 class ProductoController(RetrieveUpdateDestroyAPIView):
     serializer_class = ProductosSerializer
     queryset = ProductoModel.objects.all()
-    permission_classes = [IsAuthenticated]
+    permission_classes = [IsAdminUser]
 
     def get(self, request:Request, id):
         productoEncontrado = self.get_queryset().filter(productoId = id).first()
