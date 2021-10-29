@@ -1,5 +1,7 @@
 # PROYECTO BACKEND
 ## E-commerce ```handmade``` - Tienda de regalos personalizados :gift::package:
+<a href="![logo](https://cdn-icons-png.flaticon.com/512/4243/4243409.png)" align="center">
+<p align="center" style="backgound-color:white; font-size:45px"> PROYECTO BACKEND HANDMADE M&A </p>
 
 ## ***Autores***: 
 > :octocat: Aylin Santa Cruz
@@ -16,10 +18,10 @@ Se implementará un ecommerce de producto realizados a mano con la finalidad de 
 
 ### Contruído con :hammer_and_wrench: :
 
-> Framework: Django
-> Base de datos: Postgres
-> Tester: Postman
-> Editor de código: VSCode
+> Framework: Django <img src="https://img.icons8.com/ios/50/000000/django.png"/>
+> Base de datos: Postgres <img src="https://img.icons8.com/color/50/000000/postgreesql.png"/>
+> Tester: Postman <img src="https://img.icons8.com/dusk/64/000000/postman-api.png"/>
+> Editor de código: VSCode <img src="https://img.icons8.com/fluency/48/000000/visual-studio-code-2019.png"/>
 ### MODELO ENTIDAD RELACIÓN 
 ![image text](https://raw.github.com/ks161297/proyecto_backend/avance01/Docs/E-commerce MER.png)
 

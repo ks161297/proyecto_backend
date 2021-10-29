@@ -27,6 +27,21 @@ class RegistroClienteSerializer(serializers.ModelSerializer):
         extra_kwargs = {
             'password':{
                 'write_only':True
+            },
+           'is_active':{
+                'write_only': True,    
+            },
+            'groups':{
+                'write_only': True,    
+            },
+            'user_permissions':{
+                'write_only': True,    
+            },
+            'is_staff':{
+                'write_only': True,    
+            },
+            'clienteTipo':{
+                'write_only': True,    
             }
         }
 
