@@ -10,6 +10,7 @@
 ## ***Autores***: 
 
 > :octocat: Marigrace Silva Salas
+> Aylin Santa Cruz
 
 ### IDEA DEL PROYECTO:
 Se implementará un ecommerce de producto realizados a mano con la finalidad de facilitar a los clientes con la elección de productos.
