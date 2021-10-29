@@ -178,7 +178,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
 
 class CategoriasController(ListCreateAPIView):
     queryset = CategoriaModel.objects.all()
-    serializer_class = CategoriasSerializer
+    serializer_class = CategoriaSerializer
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
         if data.is_valid():
