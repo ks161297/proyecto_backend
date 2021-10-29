@@ -1,16 +1,23 @@
 {
   "swagger": "2.0",
   "info": {
-    "version": "1.0",
-    "title": "Handmade",
+    "version": "1.x",
+    "title": "Handmade ",
     "contact": {
       "name": "Marigrace Silva",
       "email": "mksss161297@gmail.com"
     }
   },
-  "host": "ecommerce-handmade.herokuapp.com",
+  "host": "127.0.0.1:8000",
   "basePath": "/",
-  "securityDefinitions": {},
+  "securityDefinitions": {
+    "Bearer": {
+      "type": "apiKey",
+      "name": "Authorization",
+      "in": "header",
+      "description": "Ingresa una token válida**"
+    }
+  },
   "schemes": [
     "http",
     "https"
@@ -22,82 +29,26 @@
     "application/json"
   ],
   "paths": {
-    "/handmade/cliente/{id}": {
-      "get": {
-        "summary": "/handmade/cliente/:id",
+    "/handmade/registrar/": {
+      "post": {
+        "summary": "Crear un nuevo cliente",
         "tags": [
-          "Administrador"
+          "Clientes"
         ],
-        "operationId": "/handmade/cliente/:id",
+        "operationId": "/handmade/registrar",
         "deprecated": false,
         "produces": [
           "application/json"
         ],
         "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "put": {
-        "summary": "/handmade/cliente{id}",
-        "tags": [
-          "Administrador"
-        ],
-        "operationId": "/handmade/cliente/:id1",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer"
-          },
           {
             "name": "Body",
             "in": "body",
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1clienterequest"
+              "$ref": "#/definitions/~1handmade~1registrar~1request"
             }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      },
-      "delete": {
-        "summary": "/handmade/cliente",
-        "tags": [
-          "Administrador"
-        ],
-        "operationId": "/handmade/cliente/:id2",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "id",
-            "in": "path",
-            "required": true,
-            "type": "integer"
           }
         ],
         "responses": {
@@ -108,13 +59,13 @@
         }
       }
     },
-    "/handmade/clientes": {
+    "/handmade/clientes/": {
       "get": {
-        "summary": "/handmade/clientes",
+        "summary": "Clientes activos",
         "tags": [
-          "Administrador"
+          "Búsquedas"
         ],
-        "operationId": "/handmade/clientes",
+        "operationId": "/handmade/clientes/",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -128,13 +79,49 @@
         }
       }
     },
-    "/handmade/registrar/": {
-      "post": {
-        "summary": "/handmade/registrar/",
+    "/handmade/buscar-cliente": {
+      "get": {
+        "summary": "Búsqueda cliente por nombre ó documento",
         "tags": [
-          "Clientes"
+          "Búsquedas"
         ],
-        "operationId": "/handmade/registrar/",
+        "operationId": "/handmade/buscar-cliente",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "nombre",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "documento",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/handmade/login-custom": {
+      "post": {
+        "summary": "Login usuario",
+        "tags": [
+          "Login"
+        ],
+        "operationId": "/handmade/login-custom",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -146,7 +133,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1registrarrequest"
+              "$ref": "#/definitions/~1handmade~1login-custom-request"
             }
           }
         ],
@@ -158,13 +145,99 @@
         }
       }
     },
-    "/handmade/act-perfil/{id}": {
-      "patch": {
-        "summary": "/handmade/act-perfil/:id",
+    "/handmade/refresh-token": {
+      "post": {
+        "summary": "/handmade/refresh-token",
         "tags": [
-          "Clientes"
+          "Login"
         ],
-        "operationId": "/handmade/act-perfil/:id",
+        "operationId": "/handmade/refresh-token",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/~1handmade~1refresh-token-request"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/handmade/me": {
+      "get": {
+        "summary": "Perfil Usuario",
+        "tags": [
+          "Login"
+        ],
+        "operationId": "/handmade/me",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [],
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/handmade/verify-token": {
+      "post": {
+        "summary": "/handmade/verify-token",
+        "tags": [
+          "Login"
+        ],
+        "operationId": "/handmade/verify-token",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "consumes": [
+          "application/x-www-form-urlencoded"
+        ],
+        "parameters": [
+          {
+            "name": "token",
+            "in": "formData",
+            "required": true,
+            "type": "string",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/handmade/admin/{id}": {
+      "get": {
+        "summary": "Buscar cliente por id",
+        "tags": [
+          "Administrador"
+        ],
+        "operationId": "/handmade/cliente/:id",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -174,7 +247,34 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "patch": {
+        "summary": "Acualización de perfil",
+        "tags": [
+          "Administrador"
+        ],
+        "operationId": "/handmade/cliente/:id1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "Body",
@@ -182,8 +282,69 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/Act-perfil-Request"
+              "$ref": "#/definitions/~1handmade~1cliente~1%3Aidrequest"
             }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualización completa de usuario",
+        "tags": [
+          "Administrador"
+        ],
+        "operationId": "/handmade/cliente/:id2",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
+          },
+          {
+            "name": "Body",
+            "in": "body",
+            "required": true,
+            "description": "",
+            "schema": {
+              "$ref": "#/definitions/~1handmade~1cliente~1%3Aidrequest"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar un usuario",
+        "tags": [
+          "Administrador"
+        ],
+        "operationId": "/handmade/cliente/:id3",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
@@ -196,7 +357,12 @@
     },
     "/handmade/categorias/": {
       "post": {
-        "summary": "/handmade/categorias/",
+        "summary": "Crear categorias",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Categoria"
         ],
@@ -212,7 +378,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1categoriasrequest"
+              "$ref": "#/definitions/~1handmade~1categorias~1request"
             }
           }
         ],
@@ -224,11 +390,11 @@
         }
       },
       "get": {
-        "summary": "/handmade/categorias/",
+        "summary": "Todas las categorias activas",
         "tags": [
           "Categoria"
         ],
-        "operationId": "/handmade/categorias/*",
+        "operationId": "Get/handmade/categorias/",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -243,12 +409,12 @@
       }
     },
     "/handmade/categoria/{id}": {
-      "put": {
-        "summary": "/handmade/categoria/:id",
+      "get": {
+        "summary": "Buscar categoría por id",
         "tags": [
-          "Categoria"
+          "Categoria/{id}"
         ],
-        "operationId": "/handmade/categoria/id",
+        "operationId": "/handmade/categoria/:id",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -258,7 +424,39 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      },
+      "put": {
+        "summary": "Actualización completa categoria",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
+        "tags": [
+          "Categoria/{id}"
+        ],
+        "operationId": "/handmade/categoria/:id1",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "Body",
@@ -266,7 +464,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1categoriasrequest1"
+              "$ref": "#/definitions/~1handmade~1categoria~11request"
             }
           }
         ],
@@ -278,11 +476,16 @@
         }
       },
       "delete": {
-        "summary": "/handmade/categoria/id",
-        "tags": [
-          "Categoria"
+        "summary": "Eliminar categoria",
+        "security": [
+          {
+            "Bearer": []
+          }
         ],
-        "operationId": "Delete/handmade/categoria/id1",
+        "tags": [
+          "Categoria/{id}"
+        ],
+        "operationId": "/handmade/categoria/:id2",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -292,120 +495,10 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/handmade/login-custom": {
-      "post": {
-        "summary": "/login-custom",
-        "tags": [
-          "Login"
-        ],
-        "operationId": "/login-custom",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/~1login-custom-request"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/handmade/refresh-token": {
-      "post": {
-        "summary": "refresh",
-        "tags": [
-          "Login"
-        ],
-        "operationId": "refresh",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Body",
-            "in": "body",
-            "required": true,
-            "description": "",
-            "schema": {
-              "$ref": "#/definitions/refreshrequest"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/handmade/me": {
-      "get": {
-        "summary": "Perfil",
-        "tags": [
-          "Login"
-        ],
-        "operationId": "Perfil",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "Authorization",
-            "in": "header",
-            "required": false,
-            "default": "Bearer {token}",
-            "type": "string"
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/handmade/verify-token": {
-      "post": {
-        "summary": "verify-token",
-        "tags": [
-          "Login"
-        ],
-        "operationId": "verify-token",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "consumes": [
-          "application/x-www-form-urlencoded"
-        ],
-        "parameters": [],
         "responses": {
           "200": {
             "description": "",
@@ -416,7 +509,12 @@
     },
     "/handmade/productos/": {
       "post": {
-        "summary": "/handmade/productos/",
+        "summary": "Crear productos",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
           "Productos"
         ],
@@ -432,7 +530,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1productosrequest"
+              "$ref": "#/definitions/~1handmade~1productos~1request"
             }
           }
         ],
@@ -444,11 +542,11 @@
         }
       },
       "get": {
-        "summary": "/handmade/productos/",
+        "summary": "Todos los productos activos",
         "tags": [
           "Productos"
         ],
-        "operationId": "/handmade/productos/*",
+        "operationId": "/handmade/productos",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -464,11 +562,11 @@
     },
     "/handmade/subir-imagen/": {
       "post": {
-        "summary": "/handmande/subir-imagen",
+        "summary": "/handmade/subir-imagen/",
         "tags": [
           "Subir imagen"
         ],
-        "operationId": "/handmande/subir-imagen",
+        "operationId": "/handmade/subir-imagen/",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -495,11 +593,11 @@
     },
     "/handmade/producto/{id}": {
       "get": {
-        "summary": "/handmade/producto/id",
+        "summary": "Producto por id",
         "tags": [
-          "Producto/{:id}"
+          "Producto/{id}"
         ],
-        "operationId": "/handmade/producto/id",
+        "operationId": "/handmade/producto/:id",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -509,7 +607,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
@@ -520,11 +619,16 @@
         }
       },
       "patch": {
-        "summary": "/handmade/producto/:id",
-        "tags": [
-          "Producto/{:id}"
+        "summary": "Actualización parcial de producto",
+        "security": [
+          {
+            "Bearer": []
+          }
         ],
-        "operationId": "/handmade/producto/:id1",
+        "tags": [
+          "Producto/{id}"
+        ],
+        "operationId": "Patch/handmade/producto/:id1",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -534,7 +638,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "Body",
@@ -554,9 +659,14 @@
         }
       },
       "put": {
-        "summary": "/handmade/producto/:id1",
+        "summary": "Actualización total de producto",
+        "security": [
+          {
+            "Bearer": []
+          }
+        ],
         "tags": [
-          "Producto/{:id}"
+          "Producto/{id}"
         ],
         "operationId": "/handmade/producto/:id2",
         "deprecated": false,
@@ -568,7 +678,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           },
           {
             "name": "Body",
@@ -588,11 +699,16 @@
         }
       },
       "delete": {
-        "summary": "/handmade/producto/:id2",
-        "tags": [
-          "Producto/{:id}"
+        "summary": "Eliminar producto ",
+        "security": [
+          {
+            "Bearer": []
+          }
         ],
-        "operationId": "Delete/handmade/producto/:id1",
+        "tags": [
+          "Producto/{id}"
+        ],
+        "operationId": "Delete/handmade/producto/:id3",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -602,7 +718,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
@@ -613,13 +730,13 @@
         }
       }
     },
-    "/handmade/orden/": {
+    "/handmade/orden-compra/": {
       "post": {
-        "summary": "/handmade/orden/",
+        "summary": "Crear orden de compra",
         "tags": [
           "Orden"
         ],
-        "operationId": "/handmade/orden/",
+        "operationId": "/handmade/orden-compra/",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -631,7 +748,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/~1handmade~1ordenrequest"
+              "$ref": "#/definitions/~1handmade~1orden-compra~1-request"
             }
           }
         ],
@@ -645,11 +762,11 @@
     },
     "/handmade/orden/{id}": {
       "get": {
-        "summary": "/handmade/orden/id",
+        "summary": "Ordenes de compra",
         "tags": [
-          "Orden"
+          "Orden/{id}"
         ],
-        "operationId": "/handmade/orden/id1",
+        "operationId": "/handmade/orden/:id",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -659,7 +776,8 @@
             "name": "id",
             "in": "path",
             "required": true,
-            "type": "integer"
+            "type": "integer",
+            "format": "int64"
           }
         ],
         "responses": {
@@ -670,13 +788,13 @@
         }
       }
     },
-    "/handmade/filtros": {
+    "/handmade/filtro-productos": {
       "get": {
-        "summary": "Productos",
+        "summary": "/handmade/filtro-productos",
         "tags": [
           "Consultas"
         ],
-        "operationId": "/handmade/filtros",
+        "operationId": "/handmade/filtro-productos",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -693,14 +811,15 @@
             "name": "precio",
             "in": "query",
             "required": false,
-            "type": "string",
-            "description": ""
+            "type": "number",
+            "format": "double"
           },
           {
             "name": "created_at",
             "in": "query",
             "required": false,
             "type": "string",
+            "format": "date-time",
             "description": ""
           }
         ],
@@ -712,62 +831,13 @@
         }
       }
     },
-    "/handmade/forden": {
+    "/handmade/producto-categoria": {
       "get": {
-        "summary": "Compra",
+        "summary": "Productos por categoria",
         "tags": [
           "Consultas"
         ],
-        "operationId": "Compra",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "direccion",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "correo",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "estado",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "fecha",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
-    "/handmade/prodCat": {
-      "get": {
-        "summary": "Producto x Categorias",
-        "tags": [
-          "Consultas"
-        ],
-        "operationId": "/handmade/prodCat",
+        "operationId": "/handmade/producto-categoria",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -790,13 +860,56 @@
         }
       }
     },
-    "/handmade/ordenCli": {
+    "/handmade/filtro-orden": {
       "get": {
-        "summary": "Orden Cliente",
+        "summary": "Cabecera ordenes",
         "tags": [
           "Consultas"
         ],
-        "operationId": "/handmade/ordenCli",
+        "operationId": "/handmade/filtro-orden/",
+        "deprecated": false,
+        "produces": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "direccion",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "correo",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "description": ""
+          },
+          {
+            "name": "fecha",
+            "in": "query",
+            "required": false,
+            "type": "string",
+            "format": "date-time",
+            "description": ""
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "",
+            "headers": {}
+          }
+        }
+      }
+    },
+    "/handmade/orden-cliente": {
+      "get": {
+        "summary": "Ordenes por cliente",
+        "tags": [
+          "Consultas"
+        ],
+        "operationId": "/handmade/orden-cliente",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -819,49 +932,13 @@
         }
       }
     },
-    "/handmade/buscar-cliente": {
-      "get": {
-        "summary": "BuscarCliente",
-        "tags": [
-          "Consultas"
-        ],
-        "operationId": "/handmade/buscar-cliente",
-        "deprecated": false,
-        "produces": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "nombre",
-            "in": "query",
-            "required": false,
-            "type": "string",
-            "description": ""
-          },
-          {
-            "name": "nro_doc",
-            "in": "query",
-            "required": false,
-            "type": "integer",
-            "format": "int32",
-            "description": ""
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "",
-            "headers": {}
-          }
-        }
-      }
-    },
     "/facturacion/generar-comprobante/": {
       "post": {
-        "summary": "Facturacion",
+        "summary": "Generar documento de venta",
         "tags": [
           "Facturación"
         ],
-        "operationId": "/facturacion/generar-comprobante",
+        "operationId": "/facturacion/generar-comprobante/",
         "deprecated": false,
         "produces": [
           "application/json"
@@ -873,7 +950,7 @@
             "required": true,
             "description": "",
             "schema": {
-              "$ref": "#/definitions/NewRequestRequest"
+              "$ref": "#/definitions/~1facturacion~1generar-comprobante~1-request"
             }
           }
         ],
@@ -887,8 +964,91 @@
     }
   },
   "definitions": {
-    "/handmade/clienterequest": {
-      "title": "/handmade/clienterequest",
+    "/handmade/registrar/request": {
+      "title": "/handmade/registrar/request",
+      "example": {
+        "clienteNombre": "Marigrace",
+        "clienteTipoDoc": 2,
+        "clienteNroDoc": 78549632,
+        "clienteDireccion": "Av Cayma",
+        "clienteTipo": 2,
+        "clienteCorreo": "kim@gmail.com",
+        "password": "Welcome123!"
+      },
+      "type": "object",
+      "properties": {
+        "clienteNombre": {
+          "type": "string"
+        },
+        "clienteTipoDoc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clienteNroDoc": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clienteDireccion": {
+          "type": "string"
+        },
+        "clienteTipo": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "clienteCorreo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clienteNombre",
+        "clienteTipoDoc",
+        "clienteNroDoc",
+        "clienteDireccion",
+        "clienteTipo",
+        "clienteCorreo",
+        "password"
+      ]
+    },
+    "/handmade/login-custom-request": {
+      "title": "/handmade/login-custom-request",
+      "example": {
+        "clienteCorreo": "mksss161297@gmail.com",
+        "password": "123456"
+      },
+      "type": "object",
+      "properties": {
+        "clienteCorreo": {
+          "type": "string"
+        },
+        "password": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "clienteCorreo",
+        "password"
+      ]
+    },
+    "/handmade/refresh-token-request": {
+      "title": "/handmade/refresh-token-request",
+      "example": {
+        "refresh": "eyJ0eXAiOiJKV1QiLCJhbGciOiJIUzI1NiJ9.eyJ0b2tlbl90eXBlIjoicmVmcmVzaCIsImV4cCI6MTYzNTQ4MDQ4NywianRpIjoiM2MyMTUzNTg1NTlhNGQ3MmE2NTA0MTQ0NGIxMmU5MmQiLCJ1c2VyX2lkIjozLCJ1c2VyX21haWwiOiJjY2MxYWFjY0BnbWFpbC5jb20iLCJtZW5zYWplIjoiQ3VzdG9tIn0.Gem9LR3URME75ApWDllkkbwtdtdH8Ef0fYGqG1_bR2Y"
+      },
+      "type": "object",
+      "properties": {
+        "refresh": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "refresh"
+      ]
+    },
+    "/handmade/cliente/:idrequest": {
+      "title": "/handmade/cliente/:idrequest",
       "example": {
         "clienteNombre": "Marigrace Silva Salas",
         "clienteTipoDoc": 1,
@@ -934,71 +1094,8 @@
         "password"
       ]
     },
-    "/handmade/registrarrequest": {
-      "title": "/handmade/registrarrequest",
-      "example": {
-        "clienteNombre": "",
-        "clienteTipoDoc": null,
-        "clienteNroDoc": null,
-        "clienteDireccion": " ",
-        "clienteTipo": null,
-        "clienteCorreo": "@",
-        "password": "!"
-      },
-      "type": "object",
-      "properties": {
-        "clienteNombre": {
-          "type": "string"
-        },
-        "clienteTipoDoc": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "clienteNroDoc": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "clienteDireccion": {
-          "type": "string"
-        },
-        "clienteTipo": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "clienteCorreo": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "clienteNombre",
-        "clienteTipoDoc",
-        "clienteNroDoc",
-        "clienteDireccion",
-        "clienteTipo",
-        "clienteCorreo",
-        "password"
-      ]
-    },
-    "Act-perfil-Request": {
-      "title": "Act-perfil-Request",
-      "example": {
-        "clienteNroDoc": "72750134"
-      },
-      "type": "object",
-      "properties": {
-        "clienteNroDoc": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "clienteNroDoc"
-      ]
-    },
-    "/handmade/categoriasrequest": {
-      "title": "/handmade/categoriasrequest",
+    "/handmade/categorias/request": {
+      "title": "/handmade/categorias/request",
       "example": {
         "categoriaNombre": "Aniversarios",
         "categoriaEstado": "True"
@@ -1017,8 +1114,8 @@
         "categoriaEstado"
       ]
     },
-    "/handmade/categoriasrequest1": {
-      "title": "/handmade/categoriasrequest1",
+    "/handmade/categoria/1request": {
+      "title": "/handmade/categoria/1request",
       "example": {
         "categoriaNombre": "Aniversarios"
       },
@@ -1032,43 +1129,8 @@
         "categoriaNombre"
       ]
     },
-    "/login-custom-request": {
-      "title": "/login-custom-request",
-      "example": {
-        "clienteCorreo": "cccaacc@gmail.com",
-        "password": "Welcome123!"
-      },
-      "type": "object",
-      "properties": {
-        "clienteCorreo": {
-          "type": "string"
-        },
-        "password": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "clienteCorreo",
-        "password"
-      ]
-    },
-    "refreshrequest": {
-      "title": "refreshrequest",
-      "example": {
-        "refresh": ""
-      },
-      "type": "object",
-      "properties": {
-        "refresh": {
-          "type": "string"
-        }
-      },
-      "required": [
-        "refresh"
-      ]
-    },
-    "/handmade/productosrequest": {
-      "title": "/handmade/productosrequest",
+    "/handmade/productos/request": {
+      "title": "/handmade/productos/request",
       "example": {
         "productoNombre": "Caja Artesanal 1",
         "productoDescripcion": "Detalles Especiales",
@@ -1161,8 +1223,8 @@
         "categoria"
       ]
     },
-    "/handmade/ordenrequest": {
-      "title": "/handmade/ordenrequest",
+    "/handmade/orden-compra/-request": {
+      "title": "/handmade/orden-compra/-request",
       "example": {
         "cliente_id": 1,
         "detalle": [
@@ -1216,8 +1278,8 @@
         "cantidad"
       ]
     },
-    "NewRequestRequest": {
-      "title": "NewRequestRequest",
+    "/facturacion/generar-comprobante/-request": {
+      "title": "/facturacion/generar-comprobante/-request",
       "example": {
         "ordenId": 2,
         "tipoComprobante": "BOLETA",
@@ -1246,16 +1308,22 @@
   },
   "tags": [
     {
-      "name": "Administrador"
+      "name": "Clientes"
     },
     {
-      "name": "Clientes"
+      "name": "Búsquedas"
+    },
+    {
+      "name": "Login"
+    },
+    {
+      "name": "Administrador"
     },
     {
       "name": "Categoria"
     },
     {
-      "name": "Login"
+      "name": "Categoria/{id}"
     },
     {
       "name": "Productos"
@@ -1264,10 +1332,13 @@
       "name": "Subir imagen"
     },
     {
-      "name": "Producto/<:id>"
+      "name": "Producto/{id}"
     },
     {
       "name": "Orden"
+    },
+    {
+      "name": "Orden/{id}"
     },
     {
       "name": "Consultas"

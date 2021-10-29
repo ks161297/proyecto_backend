@@ -1,19 +1,19 @@
 from django.db.models.query import QuerySet
 import cloudinary
-from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateAPIView, RetrieveUpdateDestroyAPIView, UpdateAPIView, get_object_or_404
+from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.request import Request
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .permissions import CorreoPermission
-from .serializer import CategoriaSerializer, CustomPayloadSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, OrdenesSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
+from .serializer import CategoriaSerializer, CustomPayloadSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
 from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 import cloudinary.uploader
 from rest_framework import status
 from django.conf import settings
 from django.db import transaction
-from rest_framework.permissions import AllowAny, IsAuthenticated, IsAdminUser
+from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 class RegistroClienteController(CreateAPIView):
@@ -89,7 +89,7 @@ class CustomPayloadController(TokenObtainPairView):
 
 class PerfilUsuario(RetrieveAPIView):
 
-    permission_classes = [IsAuthenticated, CorreoPermission]
+    permission_classes = [CorreoPermission]
 
     def get(self, request: Request):
         

@@ -3,7 +3,6 @@ from datetime import datetime
 
 from .models import ComprobanteModel
 from handmade.models import OrdenCompraModel, OrdenDetalleModel
-from django.db import connection
 # pip install requests
 from requests import post
 from os import environ
