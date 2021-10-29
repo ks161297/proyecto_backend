@@ -4,7 +4,7 @@
 
 
 <p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A </p>
-![logo] <img  src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
+![GitHub Logo]<img  src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
 
 
 ## ***Autores***: 
@@ -44,25 +44,25 @@ Para una descarga diresta:
 2. Ya descargado o clonado, se creará la carpeta ```proyecto_backend``` en la rama ```main``` por defecto. Deberá ingresar a la rama ```avance01``` con el siguiente comando. 
 
 ``` 
-                                        git chechout avance01
+                                                git chechout avance01
 ```
 
 3. Para empezarlo a utilizar, se deberá instalar el entorno virtual
 
 ```
-                                       virtualenv <nombre_entorno>
+                                              virtualenv <nombre_entorno>
 ```
 
 4. Asegurese que este corriendo el entorno virtual 
 
 ```
-                                  source <nombre_entorno>/Scripts/activate
+                                         source <nombre_entorno>/Scripts/activate
 ```
 
 4. Una vez creado el entorno virtual, se deben intalar lo requerimiento - librerías para no tener errores
 
 ```
-                                    pip install -r requirements.txt
+                                              pip install -r requirements.txt
 ```
 
 5. Cree la base de datos `tiendah_django`
@@ -70,25 +70,20 @@ Para una descarga diresta:
 6. Eliminar migraciones existentes y crear nuevas con los siguientes comandos
 
 ```
-                            1. python manage.py makemigrations handmade --name <nombre_migracion>
-                            2. python manage.py makemigrations facturacion --name <nombre_migracion>
-
-    
-
-                            3. python manage.py migrate handmade
-                            4. python manage.py migrate handmade
+                                  python manage.py makemigrations handmade --name <nombre_migracion>
+                                  python manage.py makemigrations facturacion --name <nombre_migracion>
 ```
 
 7. Para que sean visibles las migracions realizadas ejecutar los siguientes comandos.
 
 ```
-                            1. python manage.py migrate handmade
-                            2. python manage.py migrate handmade
+                                                    python manage.py migrate handmade
+                                                    python manage.py migrate handmade
 ```
 8. Ejecutamos en el servidor 
 
 ```
-                            python manage.py runserver
+                                                        python manage.py runserver
 ```
 ### PROYECTO_BACKEND :raised_hands:
 
