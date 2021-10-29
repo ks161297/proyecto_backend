@@ -9,6 +9,8 @@ distlib==0.3.3
 Django==3.2.8
 django-cors-headers==3.9.0
 django-payu==0.5
+django-rest-authtoken==2.1.4
+django-rest-swagger==2.2.0
 djangorestframework==3.12.4
 djangorestframework-simplejwt==4.8.0
 drf-yasg==1.20.0
@@ -22,6 +24,7 @@ Jinja2==3.0.2
 MarkupSafe==2.0.1
 mercadopago==2.0.8
 mysql-connector-python==8.0.26
+openapi-codec==1.3.2
 packaging==21.0
 Pillow==8.3.2
 platformdirs==2.4.0
@@ -38,6 +41,7 @@ redgreenunittest==0.1.1
 requests==2.26.0
 ruamel.yaml==0.17.16
 ruamel.yaml.clib==0.2.6
+simplejson==3.17.5
 six==1.16.0
 sqlparse==0.4.2
 text-unidecode==1.3
@@ -45,4 +49,3 @@ uritemplate==4.1.1
 urllib3==1.26.7
 virtualenv==20.8.1
 whitenoise==5.3.0
-gunicorn
