@@ -2,7 +2,6 @@
 from rest_framework import serializers
 from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 from rest_framework_simplejwt.serializers import TokenObtainPairSerializer
-from rest_framework.permissions import AllowAny, IsAuthenticated
 
 
 class RegistroClienteSerializer(serializers.ModelSerializer):
@@ -49,7 +48,7 @@ class CategoriasSerializer(serializers.ModelSerializer):
 
 class CategoriaSerializere(serializers.ModelSerializer):
 
-    permission_classes = [IsAuthenticated]
+    
     class Meta:
         model = CategoriaModel
         lookup_field = 'categoriaId'
