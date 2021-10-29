@@ -40,19 +40,11 @@ class clienteSerializer(serializers.ModelSerializer):
             }
         }
 
-class CategoriasSerializer(serializers.ModelSerializer):
+class CategoriaSerializer(serializers.ModelSerializer):
     class Meta: 
         model = CategoriaModel
         fields = '__all__'
-        
-
-class CategoriaSerializere(serializers.ModelSerializer):
-
-    
-    class Meta:
-        model = CategoriaModel
         lookup_field = 'categoriaId'
-
 
 class ProductosSerializer(serializers.ModelSerializer):
     class Meta:
