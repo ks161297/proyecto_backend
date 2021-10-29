@@ -50,6 +50,8 @@ INSTALLED_APPS = [
     'handmade',
     'rest_framework',
     'rest_framework_simplejwt',
+    'rest_framework_swagger',
+    'rest_framework.authtoken',
     'cloudinary',
     'corsheaders',
     'facturacion',
@@ -152,10 +154,28 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 REST_FRAMEWORK = {
+    'DEFAULT_PARSER_CLASSES': [
+        'rest_framework.parsers.FormParser',
+        'rest_framework.parsers.MultiPartParser',
+        'rest_framework.parsers.JSONParser',
+        'rest_framework.authentication.TokenAuthentication',
+    ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
-        'rest_framework_simplejwt.authentication.JWTAuthentication',
+        #'rest_framework_simplejwt.authentication.JWTAuthentication',
+        'rest_framework.authentication.TokenAuthentication',
     )
 }
+
+SWAGGER_SETTINGS = {
+    'SECURITY_DEFINITIONS': {
+        'api_Key': {
+            'type': 'apiKey',
+            'in': 'header',
+            'name': 'Token Authorization'
+        }
+    },
+}
+
 from datetime import timedelta
 
 SIMPLE_JWT = {

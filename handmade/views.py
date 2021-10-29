@@ -1,4 +1,6 @@
 from django.db.models.query import QuerySet
+from rest_framework import authentication
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
 import cloudinary
 from rest_framework.generics import CreateAPIView, ListCreateAPIView, RetrieveAPIView, RetrieveUpdateDestroyAPIView, get_object_or_404
 from rest_framework.request import Request
@@ -88,7 +90,7 @@ class CustomPayloadController(TokenObtainPairView):
 
 
 class PerfilUsuario(RetrieveAPIView):
-
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
     permission_classes = [IsAuthenticated, CorreoPermission]
 
     def get(self, request: Request):
@@ -104,6 +106,7 @@ class PerfilUsuario(RetrieveAPIView):
 class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
     serializer_class = clienteSerializer
     queryset = ClienteModel.objects.all()
+    authentication_classes[Tok]
     #Filtrar x id
     def get(self, request:Request, id):
         clienteEncontrado = self.get_queryset().filter(clienteId=id).first()
