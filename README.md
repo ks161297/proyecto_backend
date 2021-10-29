@@ -4,7 +4,7 @@
 
 
 <p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A </p>
-![GitHub Logo]<img  src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
+![GitHub Logo]("https://cdn-icons-png.flaticon.com/512/4243/4243409.png)
 
 
 ## ***Autores***: 
