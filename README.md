@@ -4,7 +4,7 @@
 
 
 <p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A </p>
-<img src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;align=center"/>
+<img src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
 
 
 ## ***Autores***: 
@@ -39,7 +39,9 @@ _Estas instrucciones te permitirán obtener una copia del proyecto en funcionami
 Para una descarga diresta: 
 Puedes descargar ó usango Git puede clonarlo. 
 
-                            ```https://github.com/ks161297/proyecto_backend.git```
+                        ```
+                        https://github.com/ks161297/proyecto_backend.git
+                        ```
 
 
 
