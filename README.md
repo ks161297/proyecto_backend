@@ -4,11 +4,10 @@
 
 
 <p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A </p>
-<img src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
+![logo] <img  src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;" align="center"/>
 
 
 ## ***Autores***: 
-> :octocat: Aylin Santa Cruz
 
 > :octocat: Marigrace Silva Salas
 
@@ -37,14 +36,60 @@ Se implementará un ecommerce de producto realizados a mano con la finalidad de 
 _Estas instrucciones te permitirán obtener una copia del proyecto en funcionamiento._
 
 Para una descarga diresta: 
-Puedes descargar ó usango Git puede clonarlo. 
+1. Puedes descargar ó usango Git puede clonarlo. 
 
-                        ```
-                        https://github.com/ks161297/proyecto_backend.git
-                        ```
+```
+                       git clone https://github.com/ks161297/proyecto_backend.git
+```
+2. Ya descargado o clonado, se creará la carpeta ```proyecto_backend``` en la rama ```main``` por defecto. Deberá ingresar a la rama ```avance01``` con el siguiente comando. 
 
+``` 
+                                        git chechout avance01
+```
 
+3. Para empezarlo a utilizar, se deberá instalar el entorno virtual
 
+```
+                                       virtualenv <nombre_entorno>
+```
+
+4. Asegurese que este corriendo el entorno virtual 
+
+```
+                                  source <nombre_entorno>/Scripts/activate
+```
+
+4. Una vez creado el entorno virtual, se deben intalar lo requerimiento - librerías para no tener errores
+
+```
+                                    pip install -r requirements.txt
+```
+
+5. Cree la base de datos `tiendah_django`
+
+6. Eliminar migraciones existentes y crear nuevas con los siguientes comandos
+
+```
+                            1. python manage.py makemigrations handmade --name <nombre_migracion>
+                            2. python manage.py makemigrations facturacion --name <nombre_migracion>
+
+    
+
+                            3. python manage.py migrate handmade
+                            4. python manage.py migrate handmade
+```
+
+7. Para que sean visibles las migracions realizadas ejecutar los siguientes comandos.
+
+```
+                            1. python manage.py migrate handmade
+                            2. python manage.py migrate handmade
+```
+8. Ejecutamos en el servidor 
+
+```
+                            python manage.py runserver
+```
 ### PROYECTO_BACKEND :raised_hands:
 
 - [X] Usar una BD (SQL o No SQL) - postgres
