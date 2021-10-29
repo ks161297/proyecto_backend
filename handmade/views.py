@@ -7,7 +7,7 @@ from rest_framework.views import APIView
 from rest_framework_simplejwt.views import TokenObtainPairView
 
 from .permissions import CorreoPermission
-from .serializer import CategoriaSerializer, CustomPayloadSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
+from .serializer import CategoriasSerializer, CategoriaSerializer, CustomPayloadSerializer, OperacionOrdenSerializer, OrdenCompraSerializer, ProductoSerializer, ProductosSerializer, RegistroClienteSerializer, clienteSerializer
 from .models import CategoriaModel, ClienteModel, OrdenCompraModel, OrdenDetalleModel, ProductoModel
 import cloudinary.uploader
 from rest_framework import status
@@ -178,7 +178,7 @@ class OpcionesAdministrador(RetrieveUpdateDestroyAPIView):
 
 class CategoriasController(ListCreateAPIView):
     queryset = CategoriaModel.objects.all()
-    serializer_class = CategoriaSerializer
+    serializer_class = CategoriasSerializer
     def post(self, request:Request):
         data = self.serializer_class(data=request.data)
         if data.is_valid():
