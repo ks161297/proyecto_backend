@@ -89,7 +89,7 @@ class CustomPayloadController(TokenObtainPairView):
 
 class PerfilUsuario(RetrieveAPIView):
 
-    permission_classes = [CorreoPermission]
+    permission_classes = [IsAuthenticated, CorreoPermission]
 
     def get(self, request: Request):
         
