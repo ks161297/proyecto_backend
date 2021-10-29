@@ -3,9 +3,9 @@
 
 
 
-<p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A 
-    <img src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:20px;height:20px;"/>
-</p>
+<p align="center" style="backgound-color:white; font-size:"45px"> PROYECTO BACKEND HANDMADE M&A </p>
+<img src="https://cdn-icons-png.flaticon.com/512/4243/4243409.png" style="width:40px;height:40px;"/>
+
 
 ## ***Autores***: 
 > :octocat: Aylin Santa Cruz
@@ -30,7 +30,7 @@ Se implementará un ecommerce de producto realizados a mano con la finalidad de 
 
 > Editor de código: VSCode <img src="https://img.icons8.com/fluency/48/000000/visual-studio-code-2019.png" style="width:20px;height:20px;"/>
 ### MODELO ENTIDAD RELACIÓN 
-![image text](https://raw.github.com/ks161297/proyecto_backend/avance01/Docs/E-commerce MER.png)
+![image text](https://raw.githubusercontent.com/ks161297/proyecto_backend/avance01/E-commerce%20MER.png)
 
 > 
 # INSTRUCCIONES PARA EL REPOSITORIO
