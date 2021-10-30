@@ -267,7 +267,7 @@ class ProductosController(ListCreateAPIView):
             return Response(data={
                 'message':'Error al crear el producto',
                 'content': data.errors
-            })
+            }, status=status.HTTP_400_BAD_REQUEST)
 
     def get(self, request:Request):
         data = ProductoModel.objects.filter(productoEstado=True).values()

@@ -2,10 +2,12 @@ name: workflow-pull-request
 on:
   pull_request:
     branches:
-      - main
+      - avance01
 jobs:
   build_and_test:
     runs-on: ubuntu-latest
+  
+
     steps:
       - name: Validar el repositorio
         uses: actions/checkout@v2

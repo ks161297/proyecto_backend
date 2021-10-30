@@ -7,4 +7,4 @@ Por favor selecciona si el PR cumple los siguientes requerimientos:
 
 ## Cual es la nueva funcionalidad
 
-- ...
+````
