@@ -18,7 +18,6 @@ from django.conf import settings
 from django.db import transaction
 from rest_framework.permissions import AllowAny, IsAuthenticated
 
-
 class RegistroClienteController(ListCreateAPIView):
     serializer_class = RegistroClienteSerializer
     def post(self, request:Request):

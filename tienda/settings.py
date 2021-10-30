@@ -11,18 +11,22 @@ https://docs.djangoproject.com/en/3.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 from os import environ
 import cloudinary
 import cloudinary.uploader
 import cloudinary.api
+import logging
 
 from dotenv import load_dotenv
 
 load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
-BASE_DIR = Path(__file__).resolve().parent.parent
-
+# BASE_DIR = Path(__file__).resolve().parent.parent
+# index_file_path = os.path.join(settings.REACT_APP_DIR, 'build', 'index.html')
+BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+TEMPLATE_PATH = os.path.join(BASE_DIR, "src")
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.2/howto/deployment/checklist/
@@ -32,7 +36,7 @@ SECRET_KEY = 'django-insecure-0cq7t^a*7=%zc8#%*o84xg!lvgx=@ac&c115y256vas_=q))!)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
-
+TEMPLATE_DEBUG = True
 ALLOWED_HOSTS = []
 
 
@@ -51,9 +55,11 @@ INSTALLED_APPS = [
     'rest_framework_simplejwt',
     'cloudinary',
     'corsheaders',
+    'webpack_loader',
 ]
 
 MIDDLEWARE = [
+    'corsheaders.middleware.CorsMiddleware',
     'django.middleware.security.SecurityMiddleware',
     'django.contrib.sessions.middleware.SessionMiddleware',
     'corsheaders.middleware.CorsMiddleware',
@@ -69,7 +75,7 @@ ROOT_URLCONF = 'tienda.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [ os.path.join(BASE_DIR, 'src') ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -132,6 +138,10 @@ USE_L10N = True
 
 USE_TZ = True
 
+CORS_ORIGIN_WHITELIST = [
+    "http://localhost:3000"
+]
+
 
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/3.2/howto/static-files/
@@ -168,6 +178,14 @@ cloudinary.config(
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 CORS_ALLOW_ALL_ORIGINS = True
 
-CORS_ALLOW_METHODS = ['GET', 'POST']
+CORS_ALLOW_METHODS = ['GET', 'POST', 'PUT', 'DELETE']
 
-CORS_ALLOW_HEADERS = ['Content-Type', 'origin', 'Authorization']
+CORS_ALLOW_HEADERS = ['Content-Type', 'origin', 'Authorization',"accept"]
+
+STATIC_URL = '/static/'
+STATICFILES_DIRS = (
+    os.path.join(
+        os.path.dirname(__file__),
+        'static',
+    ),
+)

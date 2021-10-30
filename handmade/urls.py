@@ -2,8 +2,11 @@ from django.urls import path
 from .views import  BusquedaCliente, CategoriaController, ClientesController, CustomPayloadController, DetallesController, FiltrosOrdenesController, FiltrosProductosController, OpcionesAdministrador, OrdenCompraController, OrdenxClienteController, PerfilUsuario, ProductoController, ProductosController, ProductoxCategoriaController, RegistroClienteController, SubirImagenController
 # , LoginController, LogoutController
 from rest_framework_simplejwt.views import  TokenRefreshView, TokenVerifyView
+from . import views
 
 urlpatterns = [
+
+
     # Registro Cliente - Buscar todos los clientes. 
     path('registrar/', RegistroClienteController.as_view()),
 
@@ -23,7 +26,7 @@ urlpatterns = [
     path('categoria/<int:id>', CategoriaController.as_view()),
 
     # CRUD productos [GET, POST, PUT, DELETE]
-    path('productos/', ProductosController.as_view()),
+    path('productos/', ProductosController.as_view(), name='productos'),
     path('producto/<int:id>', ProductoController.as_view()),
     
     #Subir imagen cloudinary [POST, DELETE]
